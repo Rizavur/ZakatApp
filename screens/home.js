@@ -4,13 +4,10 @@ import {globalStyles}  from '../styles/global';
 import FlatButton from '../shared/buttons'
 
 export default function Home ({navigation}) {
-    // const [view, setViews] = useState([
-    //     {title: 'Savings', id: 1},
-    //     {title: 'Business', id: 2},
-    //     {title: 'Gold', id: 3},
-    //     {title: 'Shares', id: 4},
-    //     {title: 'Insurance', id: 5},
-    // ])
+
+    const [zakatVal, setZakatVal] = useState([
+        {val: 100}
+      ]);
 
     const pressHandler = (event) => {
         navigation.navigate(event.text);
@@ -23,7 +20,7 @@ export default function Home ({navigation}) {
             <FlatButton onPress={() => pressHandler({text: 'Gold'})} text='Gold' />
             <FlatButton onPress={() => pressHandler({text: 'Shares'})} text='Shares' />
             <FlatButton onPress={() => pressHandler({text: 'Insurance'})} text='Insurance' />
-            <Text style={globalStyles.ZakatText}>Zakat: </Text>
+            <Text style={globalStyles.ZakatText}>Total Zakat: $ </Text>
         </View>
     )
     }

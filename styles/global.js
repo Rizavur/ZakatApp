@@ -8,12 +8,30 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center'
     },
     ZakatText: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
         textAlign: 'center',
-        padding: 25,
+        marginTop: 40,
+        fontSize: 30,
         fontFamily: 'yellowtail'
-
+    },
+    container: {
+        flex: 1,
+        padding: 20,
+      },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 10,
+        fontSize: 18,
+        borderRadius: 6,
+    },
+    inputCaption: {
+        fontSize: 18,
+        padding: 10,
+    },
+    savingsHead: {
+          fontSize: 18,
+          fontWeight: 'bold',
+          marginLeft: 10,
+          textDecorationLine: 'underline'
     }
 })
