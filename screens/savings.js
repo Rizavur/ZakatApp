@@ -1,54 +1,61 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
 
-import Home from './home';
-
 
 import { globalStyles } from '../styles/global';
-import { call } from 'react-native-reanimated';
-import { ThemeContext } from 'react-navigation';
 
 export default function Savings ({navigation}) {
-    const [lowestAmt, setLowestAmount] = useState(0);
-    const [interest, setInterest] = useState(0);
-    const { callback } = navigation.state.params;
+    const getNumeric = (stringVal) => {
+        if (stringVal && stringVal !== ''){
+            return parseInt(stringVal);
+        }
+        return 0;
+    }
+    
+    const { setAppStore, appStore } = navigation.state.params;
+    const [lowestAmt, setLowestAmt] = useState(appStore.savings.lowestAmt);
+    const [interest, setInterest] = useState(appStore.savings.interest);
+    const savingsZakat = getNumeric(lowestAmt) - getNumeric(interest);
 
-    const savingsZakat = ((lowestAmt - interest)/100) * 2.5;
 
     return(
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <View style = {globalStyles.container}>
+        <ScrollView style = {globalStyles.container}>
             <Formik
-                initialValues= {{LowestAmt:0, Interest:0}}
+                initialValues= {{lowestAmt: lowestAmt, interest: interest }}
             >
             {props => (
                 <View>
                         <Text style={globalStyles.savingsHead}>Account 1</Text>
                         <Text style={globalStyles.inputCaption}>Lowest Amount In Year: </Text>
                         <TextInput
-                        //onChangeText={props.handleChange('LowestAmt')}
-                        //value={props.values.LowestAmt}
+                        clearTextOnFocus
+                        onChangeText={props.handleChange('lowestAmt')}
+                        value = {lowestAmt}
                         style={globalStyles.input}
                         placeholder='Enter lowest amount in year'
                         keyboardType= 'numeric'
-                        onChange={(value) => setLowestAmount(value.nativeEvent.text)}
+                        onChange={(value) => setLowestAmt(value.nativeEvent.text)}
                         />
                         <Text style={globalStyles.inputCaption}>Interest earned: </Text>
                         <TextInput
+                        clearTextOnFocus
+                        value = {interest}
                         onChange={(value) => setInterest(value.nativeEvent.text)}
                         style={globalStyles.input}
                         placeholder='Enter interest earned in year'
                         keyboardType= 'numeric'
                         />
-                        <FlatButton onPress={() => {callback(savingsZakat); navigation.navigate('Home')} } text='Calculate' />
-
+                        <FlatButton onPress={() => {setAppStore({ ...appStore, savings: {lowestAmt: (lowestAmt), interest: (interest)}});
+                                                     navigation.navigate('Home')} } text='Calculate' />
+                        <Text style={globalStyles.netAmt}>Net Savings: ${savingsZakat}</Text>
                 </View>
                 )}
             </Formik>
-        </View>
+        </ScrollView>
         </TouchableWithoutFeedback>
 
     )}

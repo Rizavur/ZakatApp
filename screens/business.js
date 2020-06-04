@@ -14,8 +14,8 @@ export default function Business ({navigation}) {
     return(
         <NavigationContainer>
             <Tab.Navigator>
-                <Tab.Screen name="Small Business" component={SmallScreen} />
-                <Tab.Screen name="Medium/Large Business" component={MedLargeScreen} />
+                <Tab.Screen name="Small Business" component={SmallScreen} initialParams={ navigation } />
+                <Tab.Screen name="Medium/Large Business" component={MedLargeScreen} initialParams={ navigation } />
             </Tab.Navigator>
         </NavigationContainer>
     )}
