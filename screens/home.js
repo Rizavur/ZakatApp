@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, Button, FlatList } from 'react-native';
-import {globalStyles}  from '../styles/global';
-import FlatButton from '../shared/buttons'
+import { ScrollView, View, Text, FlatList } from 'react-native';
+import {globalStyles, paperStyles}  from '../styles/global';
+import HomeButton from '../shared/homeButton';
+// import {Card, Title, Paragraph, Button} from 'react-native-paper';
+// import { Provider as PaperProvider } from 'react-native-paper';
+
 
 export default function Home ({navigation}) {
     const [appStore, setAppStore] = useState({
@@ -16,21 +19,21 @@ export default function Home ({navigation}) {
                     bank: '',
                     stock: '',
                     debtors: '',
-                    others: '',
+                    amountACAothers: '',
                 },
                 amountLCL: {
                     creditors: '',
                     operatingExpenses: '',
-                    others: '',
+                    amountLCLothers: '',
                 },
                 adjustmentsACA: {
                     donation: '',
                     personal: '',
-                    others: '',
+                    adjustmentsACAothers: '',
                 },
                 adjustmentsLCA: {
-                    stock: '',
-                    others: '',
+                    adjustmentStock: '',
+                    adjustmentsLCAothers: '',
                 }},
         },
         gold: {
@@ -42,57 +45,124 @@ export default function Home ({navigation}) {
         },
         insurance: {
             surrender: '',
-        }
+        },
+        results: {
+            savings: {
+                net: 0, 
+                zakat: 0
+            },
+            businessSmall: {
+                net: 0,
+                zakat: 0
+            },
+            businessMedLar: {
+                net: 0,
+                zakat: 0
+            },
+            gold: {
+                net: 0,
+                zakat: 0
+            },
+            shares: {
+                net: 0,
+                zakat: 0
+            },
+            insurance: {
+                net: 0,
+                zakat: 0
+            }
+        },
     })
 
-    console.log(appStore);
+    const results = appStore.results;
 
-    const getNumeric = (stringVal) => {
-        if (stringVal && stringVal !== ''){
-            return parseInt(stringVal);
-        }
-        return 0;
-    }
-
-    const savingsNet = (getNumeric(appStore.savings.lowestAmt) - getNumeric(appStore.savings.interest)).toFixed(2);
-    const savingsZakat = ((savingsNet)/100 * 2.5).toFixed(2);
-    
-    const goldNet = (getNumeric(appStore.gold.weight) * 80.24).toFixed(2);
-    const goldZakat = ((goldNet)/100 *2.5).toFixed(2);
-    
-    const sharesNet = (getNumeric(appStore.shares.perUnit) * getNumeric(appStore.shares.noUnit)).toFixed(2);
-    const sharesZakat = ((sharesNet)/100 *2.5).toFixed(2);
-
-    const insuranceNet = (getNumeric(appStore.insurance.surrender)).toFixed(2);
-    const insuranceZakat = ((insuranceNet)/100 * 2.5).toFixed(2);
-
-    const Zakat = (getNumeric(savingsZakat) 
-                  + getNumeric(goldZakat) 
-                  + getNumeric(sharesZakat)
-                  + getNumeric(insuranceZakat)).toFixed(2);
+    const Zakat = (parseFloat(results.savings.zakat) +
+                parseFloat(results.businessSmall.zakat) +
+                parseFloat(results.businessMedLar.zakat) +
+                parseFloat(results.gold.zakat) +
+                parseFloat(results.shares.zakat) +
+                parseFloat(results.insurance.zakat)).toFixed(2);    
 
     const pressHandler = ({ text }) => {
         navigation.navigate(text, { appStore, setAppStore });
     }
 
     return(
+        // <PaperProvider theme = {paperStyles}>
+        // <ScrollView style={globalStyles.homeBG}>
+        //     <Text style={globalStyles.ZakatText}>Zakat: $ {Zakat}</Text>
+
+        //     <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Savings'})}>
+        //         <Card.Title title="Savings"/> 
+        //         <Card.Content>
+        //             <Paragraph>Total: ${appStore.results.savings.net}</Paragraph>
+        //             <Paragraph>Zakat: ${appStore.results.savings.zakat}</Paragraph>
+        //         </Card.Content>
+        //         {/* <Button icon='pen'>Edit</Button> */}
+        //     </Card>
+
+        //     <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Business'})}>
+        //         <Card.Title title="Business"/> 
+        //         <Card.Content>
+        //             <Paragraph>Total: ${appStore.results.businessSmall.net}</Paragraph>
+        //             <Paragraph>Zakat: ${appStore.results.businessSmall.zakat}</Paragraph>
+        //         </Card.Content>
+        //         {/* <Button icon='pen'>Edit</Button> */}
+        //     </Card>
+
+        //     <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Gold'})}>
+        //         <Card.Title title="Gold"/> 
+        //         <Card.Content>
+        //             <Paragraph>Total: ${appStore.results.gold.net}</Paragraph>
+        //             <Paragraph>Zakat: ${appStore.results.gold.zakat}</Paragraph>
+        //         </Card.Content>
+        //         {/* <Button icon='pen'>Edit</Button> */}
+        //     </Card>
+
+        //     <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Shares'})}>
+        //         <Card.Title title="Shares"/> 
+        //         <Card.Content>
+        //             <Paragraph>Total: ${appStore.results.shares.net}</Paragraph>
+        //             <Paragraph>Zakat: ${appStore.results.shares.zakat}</Paragraph>
+        //         </Card.Content>
+        //         {/* <Button icon='pen'>Edit</Button> */}
+        //     </Card>
+
+        //     <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Insurance'})}>
+        //         <Card.Title title="Insurance"/> 
+        //         <Card.Content>
+        //             <Paragraph>Total: ${appStore.results.insurance.net}</Paragraph>
+        //             <Paragraph>Zakat: ${appStore.results.insurance.zakat}</Paragraph>
+        //         </Card.Content>
+        //         {/* <Button icon='pen'>Edit</Button> */}
+        //     </Card>
+
+
+        // </ScrollView>
+        // </PaperProvider>
+
         <ScrollView>
-            <FlatButton onPress={() => pressHandler({text: 'Savings'})} text='Savings' />
-            <Text style={globalStyles.homeText}>Savings Total: ${savingsNet}</Text>
+            <HomeButton onPress={() => pressHandler({text: 'Savings'})} text='Savings' />
+            <Text style={globalStyles.homeText}>Total: ${appStore.results.savings.net}</Text>
+            <Text style={globalStyles.homeText}>Zakat: ${appStore.results.savings.zakat}</Text>
 
-            <FlatButton onPress={() => pressHandler({text: 'Business'})} text='Business' />
-            <Text style={globalStyles.homeText}>Business Total: $</Text>
+            <HomeButton onPress={() => pressHandler({text: 'Business'})} text='Business' />
+            <Text style={globalStyles.homeText}>Total: ${appStore.results.businessSmall.net}</Text>
+            <Text style={globalStyles.homeText}>Zakat: ${appStore.results.businessSmall.zakat}</Text>
 
-            <FlatButton onPress={() => pressHandler({text: 'Gold'})} text='Gold' />
-            <Text style={globalStyles.homeText}>Gold Total: ${goldNet}</Text>
+            <HomeButton onPress={() => pressHandler({text: 'Gold'})} text='Gold' />
+            <Text style={globalStyles.homeText}>Total: ${appStore.results.gold.net}</Text>
+            <Text style={globalStyles.homeText}>Zakat: ${appStore.results.gold.zakat}</Text>
 
-            <FlatButton onPress={() => pressHandler({text: 'Shares'})} text='Shares'/>
-            <Text style={globalStyles.homeText}>Shares Total: ${sharesNet}</Text>
+            <HomeButton onPress={() => pressHandler({text: 'Shares'})} text='Shares'/>
+            <Text style={globalStyles.homeText}>Total: ${appStore.results.shares.net}</Text>
+            <Text style={globalStyles.homeText}>Zakat: ${appStore.results.shares.zakat}</Text>
 
-            <FlatButton onPress={() => pressHandler({text: 'Insurance'})} text='Insurance' />
-            <Text style={globalStyles.homeText}>Insurance Total: ${insuranceNet}</Text>
+            <HomeButton onPress={() => pressHandler({text: 'Insurance'})} text='Insurance' />
+            <Text style={globalStyles.homeText}>Total: ${appStore.results.insurance.net}</Text>
+            <Text style={globalStyles.homeText}>Zakat: ${appStore.results.insurance.zakat}</Text>
 
-            <Text style={globalStyles.ZakatText}>Total Zakat: $ {Zakat}</Text>
+            <Text style={globalStyles.ZakatText}>Zakat: $ {Zakat}</Text>
         </ScrollView>
     )
     }

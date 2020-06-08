@@ -12,7 +12,8 @@ export default function Shares ({navigation}) {
     const [perUnit, setPerUnit] = useState(appStore.shares.perUnit);
     const [noUnit, setNoUnit] = useState(appStore.shares.noUnit);
 
-    const netShares = (perUnit * noUnit).toFixed(2);
+    const sharesNet = (perUnit * noUnit).toFixed(2);
+    const sharesZakat = ((sharesNet)/100 *2.5).toFixed(2);
     
     return(
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -44,9 +45,16 @@ export default function Shares ({navigation}) {
                         keyboardType= 'numeric'
                         />
                         
-                        <FlatButton onPress={() => {setAppStore({ ...appStore, shares: {perUnit: (perUnit), noUnit: (noUnit)}});
-                                                     navigation.navigate('Home')} } text='Calculate' />
-                        <Text style={globalStyles.netAmt}>Net Shares Assets: ${netShares}</Text>
+                        <FlatButton onPress={() => {
+                            setAppStore(
+                                { ...appStore, 
+                                shares: {perUnit: (perUnit), noUnit: (noUnit)}, 
+                                results: {...appStore.results, shares: {net: sharesNet ,zakat: sharesZakat}}
+                                });
+                                navigation.navigate('Home')}} 
+                                text='Calculate' />
+                        <Text style={globalStyles.netAmt}>Net Shares Assets: ${sharesNet}</Text>
+                        <Text style={globalStyles.netAmt}>Shares Zakat: ${sharesZakat}</Text>
                 </View>
                 )}
             </Formik>

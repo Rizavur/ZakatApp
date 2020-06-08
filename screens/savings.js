@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button, NavigatorIOS } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
 
+import { getNumeric } from '../utils/numberUtil';
 
 import { globalStyles } from '../styles/global';
 
 export default function Savings ({navigation}) {
-    const getNumeric = (stringVal) => {
-        if (stringVal && stringVal !== ''){
-            return parseInt(stringVal);
-        }
-        return 0;
-    }
     
     const { setAppStore, appStore } = navigation.state.params;
     const [lowestAmt, setLowestAmt] = useState(appStore.savings.lowestAmt);
     const [interest, setInterest] = useState(appStore.savings.interest);
-    const savingsZakat = getNumeric(lowestAmt) - getNumeric(interest);
 
+    const savingsNet = (getNumeric(lowestAmt) - getNumeric(interest)).toFixed(2);
+    const savingsZakat = ((savingsNet)/100 * 2.5).toFixed(2);
 
     return(
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -49,13 +45,28 @@ export default function Savings ({navigation}) {
                         placeholder='Enter interest earned in year'
                         keyboardType= 'numeric'
                         />
-                        <FlatButton onPress={() => {setAppStore({ ...appStore, savings: {lowestAmt: (lowestAmt), interest: (interest)}});
-                                                     navigation.navigate('Home')} } text='Calculate' />
-                        <Text style={globalStyles.netAmt}>Net Savings: ${savingsZakat}</Text>
+                        <FlatButton onPress={() => {
+                            setAppStore({ 
+                                ...appStore, 
+                                savings: { lowestAmt, interest}, 
+                                results: {
+                                    ...appStore.results,
+                                    savings: {
+                                        net: savingsNet, 
+                                        zakat: savingsZakat
+                                    }
+                                }
+                            });
+                            navigation.navigate('Home')} } 
+                            text='Calculate' 
+                        />
+                        <Text style={globalStyles.netAmt}>Net Savings: ${savingsNet}</Text>
+                        <Text style={globalStyles.netAmt}>Savings Zakat: ${savingsZakat}</Text>
                 </View>
                 )}
             </Formik>
         </ScrollView>
         </TouchableWithoutFeedback>
 
-    )}
+    )
+}

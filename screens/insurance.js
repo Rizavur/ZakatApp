@@ -3,12 +3,17 @@ import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 
+import { getNumeric } from '../utils/numberUtil';
+
 import { globalStyles } from '../styles/global';
 
 export default function Insurance ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
 
     const [surrender, setSurrender] = useState(appStore.insurance.surrender)
+
+    const insuranceNet = (getNumeric(surrender)).toFixed(2);
+    const insuranceZakat = ((insuranceNet)/100 * 2.5).toFixed(2);
 
     return(
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -30,9 +35,23 @@ export default function Insurance ({navigation}) {
                         keyboardType= 'numeric'
                         />
                         
-                        <FlatButton onPress={() => {setAppStore({ ...appStore, insurance: {surrender: (surrender)}});
-                                                    navigation.navigate('Home')} } text='Calculate' />
-                        <Text style={globalStyles.netAmt}>Net Insurance Assets: ${surrender}</Text>
+                        <FlatButton onPress={() => {
+                            setAppStore(
+                                { ...appStore, 
+                                insurance: {surrender: surrender},
+                                results: {
+                                    ...appStore.results,
+                                    insurance: {
+                                        net: insuranceNet,
+                                        zakat: insuranceZakat,
+                                    }
+                                }
+                                });
+                                navigation.navigate('Home')} } 
+                                text='Calculate' 
+                        />
+                        <Text style={globalStyles.netAmt}>Net Insurance Assets: ${insuranceNet}</Text>
+                        <Text style={globalStyles.netAmt}>Insurance Zakat: ${insuranceZakat}</Text>
                 </View>
                 )}
             </Formik>

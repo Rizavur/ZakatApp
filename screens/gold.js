@@ -3,19 +3,16 @@ import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 
+import { getNumeric } from '../utils/numberUtil';
+
 import { globalStyles } from '../styles/global';
 
 export default function Gold ({navigation}) {
-    const getNumeric = (stringVal) => {
-        if (stringVal && stringVal !== ''){
-            return parseInt(stringVal);
-        }
-        return 0;
-    }
-
     const { setAppStore, appStore } = navigation.state.params;
     const [weight, setWeight] = useState(appStore.gold.weight);
-    const goldVal = (80.24 * getNumeric(weight)).toFixed(2);
+
+    const goldNet = (getNumeric(weight) * 80.24).toFixed(2);
+    const goldZakat = ((goldNet)/100 *2.5).toFixed(2);
 
     return(
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -37,9 +34,22 @@ export default function Gold ({navigation}) {
                         onChange={(value) => setWeight(value.nativeEvent.text)}
                         />
                         
-                        <FlatButton onPress={() => {setAppStore({ ...appStore, gold: {weight: (weight)}});
-                                                     navigation.navigate('Home')} } text='Calculate' />
-                        <Text style={globalStyles.netAmt}>Net Gold Assets: ${goldVal}</Text>
+                        <FlatButton onPress={() => {
+                            setAppStore({ ...appStore, gold: {weight}, 
+                            results: {
+                                ...appStore.results,
+                                gold: {
+                                    net: goldNet, 
+                                    zakat: goldZakat
+                                    }
+                                }
+                            });
+                            navigation.navigate('Home')} } 
+                            text='Calculate' 
+                        />
+                        <Text style={globalStyles.netAmt}>Net Gold Assets: ${goldNet}</Text>
+                        <Text style={globalStyles.netAmt}>Gold Zakat: ${goldZakat}</Text>
+
                 </View>
                 )}
             </Formik>

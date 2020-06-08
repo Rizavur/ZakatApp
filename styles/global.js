@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { DefaultTheme, configureFonts } from 'react-native-paper';
 
 export const globalStyles = StyleSheet.create({
     TestView: {
@@ -10,13 +11,13 @@ export const globalStyles = StyleSheet.create({
     ZakatText: {
         textAlign: 'center',
         marginTop: 20,
-        marginBottom: 20,
         fontSize: 30,
-        fontFamily: 'yellowtail'
+        fontWeight: 'bold',
+        color: 'black'
     },
     container: {
         flex: 1,
-        padding: 20,
+        padding: 20
       },
     input: {
         flex:1,
@@ -54,15 +55,56 @@ export const globalStyles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 50
     },
-    homeText: {
-        textAlign: 'center',
-        fontSize: 16,
-        marginTop: 15
+    homeContainer: {
+        flex: 1,
     },
-
+    homeText: {
+        textAlign: 'left',
+        marginLeft: 20,
+        fontSize: 16,
+        marginTop: 15,
+        alignContent: 'flex-start'
+    },
+    homeText2: {
+        textAlign: 'left',
+        marginLeft: 20,
+        fontSize: 16,
+        marginTop: 15,
+        alignContent: 'flex-end'
+    },
     leftInputCaptionText: {
         fontSize: 18,
         alignSelf: 'center'
 
-    }
+    },
+    button: {
+        marginTop: 20,
+        borderRadius: 8,
+        paddingLeft: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        opacity: 70,
+      },
+      buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center',
+      },
+      homeBG: {
+          backgroundColor: 'white'
+      }
 })
+
+
+export const paperStyles = {
+    ...DefaultTheme,
+    roundness: 5,
+    colors: {
+        ...DefaultTheme.colors,
+        surface: 'goldenrod',
+        text: 'black',
+        primary: 'white',
+
+      },
+}

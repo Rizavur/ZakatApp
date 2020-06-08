@@ -6,16 +6,18 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import SmallScreen from '../BusinessScreens/SmallScreen'
 import MedLargeScreen from '../BusinessScreens/MedLargeScreen'
+import { createAppContainer } from 'react-navigation';
 
 const Tab = createMaterialTopTabNavigator();
 
+const AppContainer = NavigationContainer;
 
 export default function Business ({navigation}) {
     return(
-        <NavigationContainer>
+        <AppContainer>
             <Tab.Navigator>
                 <Tab.Screen name="Small Business" component={SmallScreen} initialParams={ navigation } />
                 <Tab.Screen name="Medium/Large Business" component={MedLargeScreen} initialParams={ navigation } />
             </Tab.Navigator>
-        </NavigationContainer>
+        </AppContainer>
     )}

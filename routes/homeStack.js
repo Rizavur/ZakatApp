@@ -1,4 +1,6 @@
+import * as React from 'react';
 import { StyleSheet } from 'react-native';
+// import { createStackNavigator } from '@react-navigation/stack';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Home from '../screens/home';
@@ -7,6 +9,21 @@ import Business from '../screens/business';
 import Gold from '../screens/gold';
 import Shares from '../screens/shares';
 import Insurance from '../screens/insurance';
+
+// const Stack = createStackNavigator();
+
+// export default function HomeStack() {
+//     return(
+//         <Stack.Navigator>
+//             <Stack.Screen name="Home" component={Home} />
+//             <Stack.Screen name="Savings" component={Savings} />
+//             <Stack.Screen name="Business" component={Business} />
+//             <Stack.Screen name="Gold" component={Gold} />
+//             <Stack.Screen name="Shares" component={Shares} />
+//             <Stack.Screen name="Insurance" component={Insurance} />
+//         </Stack.Navigator>
+//     )
+// }
 
 const screens = {
     Home: {
@@ -30,7 +47,7 @@ const screens = {
     },
     Insurance: {
         screen: Insurance
-    }
+    },
 }
 
 const styles = StyleSheet.create({
@@ -41,6 +58,7 @@ const styles = StyleSheet.create({
 
     }
 })
-const HomeStack = createStackNavigator(screens);
 
-export default createAppContainer(HomeStack);
+const Stack = createStackNavigator(screens);
+
+export default createAppContainer(Stack);

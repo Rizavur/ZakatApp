@@ -3,7 +3,9 @@ import {Text, View} from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { globalStyles } from './styles/global';
-import Navigator from './routes/homeStack';
+import Stack from './routes/homeStack';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './screens/home';
 
 const getFonts = () => Font.loadAsync({
   'yellowtail': require('./assets/fonts/Yellowtail-Regular.ttf'),
@@ -14,7 +16,10 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <Navigator/>
+      <Stack/>
+      // <NavigationContainer>
+      //   <HomeStack/>
+      // </NavigationContainer>
     );
   } else {
     return (

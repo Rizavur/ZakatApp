@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     opacity: 70,
+    borderWidth: 1,
   },
   buttonText: {
     color: 'white',
