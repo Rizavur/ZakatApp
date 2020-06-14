@@ -9,6 +9,7 @@ import Business from '../screens/business';
 import Gold from '../screens/gold';
 import Shares from '../screens/shares';
 import Insurance from '../screens/insurance';
+import Test from '../screens/test';
 
 // const Stack = createStackNavigator();
 
@@ -32,6 +33,9 @@ const screens = {
             title: 'Zakat Calculator',
             headerTitleStyle: styles.headerTitleStyle,
           }),
+    },
+    Test: {
+        screen: Test
     },
     Savings: {
         screen: Savings

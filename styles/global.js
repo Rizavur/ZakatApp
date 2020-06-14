@@ -9,28 +9,34 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center'
     },
     ZakatText: {
+        fontFamily: 'yellowtail',
         textAlign: 'center',
         marginTop: 20,
         fontSize: 30,
         fontWeight: 'bold',
-        color: 'black'
+        color: '#7FFFD4'
     },
     container: {
         flex: 1,
-        padding: 20
+        padding: 20,
       },
     input: {
-        flex:1,
         borderWidth: 1,
         borderColor: '#ddd',
-        padding: 10,
+        marginHorizontal: 10,
+        padding: 8,
         fontSize: 16,
-        borderRadius: 20,
+        borderRadius: 15,
+        color: 'white'
     },
     inputCaption: {
         fontSize: 18,
         padding: 10,
-        textDecorationLine: 'underline'
+    },
+    inputCaptionAccordion: {
+        fontSize: 18,
+        padding: 10,
+        color: 'white'
     },
     inputCaption2: {
         fontSize: 18,
@@ -57,6 +63,7 @@ export const globalStyles = StyleSheet.create({
     },
     homeContainer: {
         flex: 1,
+        flexDirection: 'row'
     },
     homeText: {
         textAlign: 'left',
@@ -72,6 +79,11 @@ export const globalStyles = StyleSheet.create({
         marginTop: 15,
         alignContent: 'flex-end'
     },
+    homeRightZakat: {
+        position: 'absolute',
+        marginLeft: 160,
+                 
+    },
     leftInputCaptionText: {
         fontSize: 18,
         alignSelf: 'center'
@@ -84,6 +96,7 @@ export const globalStyles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         opacity: 70,
+        paddingBottom: 20,
       },
       buttonText: {
         color: 'white',
@@ -92,7 +105,7 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
       },
       homeBG: {
-          backgroundColor: 'white'
+          backgroundColor: 'black'
       }
 })
 
@@ -102,9 +115,9 @@ export const paperStyles = {
     roundness: 5,
     colors: {
         ...DefaultTheme.colors,
-        surface: 'goldenrod',
+        surface: '#7FFFD4',
         text: 'black',
-        primary: 'white',
+        primary: 'black',
 
       },
 }

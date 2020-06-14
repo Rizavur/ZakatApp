@@ -9,7 +9,7 @@ import { getNumeric } from '../utils/numberUtil';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 
-export default function Savings ({navigation}) {
+export default function Test ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
