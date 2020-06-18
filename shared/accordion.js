@@ -1,63 +1,14 @@
-// import React, { useState } from "react";
-// import Text, {NativeModules} from 'react-native';
-// import { View } from "react-native-animatable";
-// import FlatButton from "./buttons";
-
-// const styles = {
-//     accordionSection: {
-//         flex: 1,
-//       },
-    
-//       accordionTitle: {
-//         fontSize: 14,
-//         textAlign: 'left',
-//         },
-     
-//       accordionContent: {
-//         backgroundColor: 'white',
-//         overflow: 'auto'
-//       }
-      
-// }
-
-// function Accordion(props) {
-//   const [setActive, setActiveState] = useState(false);
-//   const [setHeight, setHeightState] = useState(0);
-//   const [setRotate, setRotateState] = useState("accordion__icon");
-
-//   function toggleAccordion() {
-//     setActiveState(setActive === true ? false : true);
-//     setHeightState(
-//       setActive === false ? 0 : 500;
-//     );
-//     console.log(setHeight);
-//     setRotateState(
-//       setActive === "active" ? "accordion__icon" : "accordion__icon rotate"
-//     );
-//   }
-
-//   return (
-//     <View style={styles.accordionSection}>
-//       <FlatButton onPress={toggleAccordion}>
-//         <Text style={{...styles.accordionTitle, maxHeight: 500}}>{props.title}</Text>
-//       </FlatButton>
-//     </View>
-//   );
-// }
-
-// export default Accordion;
-
-
 import React, {useState} from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Button } from 'react-native';
 
 export default function Accordion(props) {
   const [active, setActiveState] = useState(false);
   const [height, setHeight] = useState(0);
+  const [remove, setRemove] = useState(false);
 
   function toggleAccordion() {
     setActiveState( active === false ? true : false);
-    setHeight(active === true ? 0 : 200);
+    setHeight(active === true ? 0 : props.height);
   }
 
   const show = () => {
@@ -65,12 +16,13 @@ export default function Accordion(props) {
   }
 
   const form2 = props.form;
-  console.log(form2);
-
+    
   return (
     <TouchableOpacity onPress={toggleAccordion}>
       <View style={styles.button}>
         <Text style={styles.buttonText}>{props.title}</Text>
+        {props.value === undefined ? undefined : <Text style={styles.accordionTotal}>${props.value}</Text> }
+        {props.remove === true ? (<Button title='Remove' onPress={props.doRemove}/>) : undefined }
         {show()}
       </View>
     </TouchableOpacity>
@@ -92,7 +44,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
     height: 30
   },
@@ -101,5 +53,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
+  },
+  accordionTotal: {
+    color: 'white',
+    textAlign: 'center',
+    marginTop: -20,
+    marginBottom: 10,
+    fontSize: 16,
+  },
+  removeButton: {
+    color: 'red',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    position: 'absolute',
+    marginLeft: 20,
+    marginTop: 0,
+    fontSize: 40
   }
 });

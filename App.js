@@ -9,6 +9,8 @@ import Home from './screens/home';
 
 const getFonts = () => Font.loadAsync({
   'yellowtail': require('./assets/fonts/Yellowtail-Regular.ttf'),
+  'oswaldLight': require('./assets/fonts/Oswald-Light.ttf'),
+  'oswaldBold': require('./assets/fonts/Oswald-Regular.ttf'),
 });
 
 export default function App() {

@@ -9,7 +9,7 @@ import { getNumeric } from '../utils/numberUtil';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 
-export default function Savings ({navigation}) {
+export default function Test ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
@@ -26,13 +26,13 @@ export default function Savings ({navigation}) {
         return currentAccounts;
     }
 
-    const savingsForm = (key) => {
+    const savingsForm = (key, index) => {
         return(
         <View>
             <Formik
                 initialValues= {{ 
-                    [`${key}_lowestAmt`]: accounts[key - 1].lowestAmt, 
-                    [`${key}_interest`]: accounts[key - 1].interest, 
+                    [`${key}_lowestAmt`]: accounts[index].lowestAmt === undefined? '': accounts[index].lowestAmt, 
+                    [`${key}_interest`]: accounts[index].interest === undefined? '': accounts[index].interest, 
                 }}
             >
             {props => (
@@ -42,17 +42,18 @@ export default function Savings ({navigation}) {
                         clearTextOnFocus
                         onChangeText={props.handleChange('lowestAmt')}
                         name = {`${key}_lowestAmt`}
-                        value = {accounts[key - 1].lowestAmt}
+                        value = {accounts[index].lowestAmt}
                         style={globalStyles.input}
                         placeholder='Enter lowest amount'
                         keyboardType= 'numeric'
-                        onChange={(value) => getAccountsWithNewLowestAmt(key, value.nativeEvent.text)}
+                        onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
                     <Text style={globalStyles.inputCaptionAccordion}>Interest earned: </Text>
                     <TextInput
                         clearTextOnFocus
                         onChangeText={props.handleChange('interest')}
-                        value = {accounts[key - 1].interest}
+                        name = {`${key}_interest`}
+                        value = {accounts[index].interest}
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
                         style={globalStyles.input}
                         placeholder='Enter interest earned'
@@ -65,7 +66,7 @@ export default function Savings ({navigation}) {
         )
     }
 
-    const accordionKey = (accounts) => {
+    const accordionKey = () => {
         return((accounts[accounts.length - 1].key) + 1)
     }
 
@@ -78,8 +79,15 @@ export default function Savings ({navigation}) {
         accounts.map(account => {
             total = total + getNumeric(account.lowestAmt) - getNumeric(account.interest);
         });
-        console.log(total);
         return (total);
+    }
+
+    const doRemove = (index) => {
+        if (accounts && accounts.length>1){
+            const newAccounts = accounts;
+            newAccounts.splice(index, 1);
+            setAccounts([...newAccounts]);
+        }
     }
 
     return(
@@ -90,7 +98,7 @@ export default function Savings ({navigation}) {
         onPress={() => {
             setAccounts((accounts.length > 0) 
                 ? [...accounts, {
-                    key: accordionKey(accounts), 
+                    key: accordionKey(), 
                     interest: '', 
                     lowestAmt: ''
                 }]
@@ -98,7 +106,15 @@ export default function Savings ({navigation}) {
             )}
         }
         />
-            {accounts.map(account => <Accordion title={accordionTitle(account)} form= {savingsForm(account.key)} />)}
+            {accounts.map((account,index) => 
+            <Accordion 
+            remove={true} 
+            doRemove={() => doRemove(index)} 
+            title={accordionTitle(account)} 
+            height={200} 
+            form= {savingsForm(account.key, index)} 
+            />
+            )}
             <FlatButton onPress={() => {
                 setAppStore({ 
                     ...appStore, 

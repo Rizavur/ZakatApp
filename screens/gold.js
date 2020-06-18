@@ -10,20 +10,30 @@ import { globalStyles } from '../styles/global';
 export default function Gold ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
     const [weight, setWeight] = useState(appStore.gold.weight);
+    const [value, setValue] = useState(appStore.gold.value);
 
-    const goldNet = (getNumeric(weight) * 80.24).toFixed(2);
+    const goldNet = (getNumeric(weight) * value).toFixed(2);
     const goldZakat = ((goldNet)/100 *2.5).toFixed(2);
 
     return(
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView style = {globalStyles.container}>
             <Formik
-            initialValues= {{weight: weight}}
+            initialValues= {{weight, value}}
             >
             {props => (
                 <View style = {globalStyles.container}>
-                        <Text style={globalStyles.savingsHead}>Market Price of Gold: $80.24 /g</Text>
-                        <Text style={globalStyles.inputCaption}>Weight of Gold bar/jewellery:</Text>
+                        <Text style={globalStyles.inputCaption}>MARKET VALUE OF GOLD(g):</Text>
+                        <TextInput
+                        onChangeText={props.handleChange('value')}
+                        value = {value}
+                        clearTextOnFocus
+                        style={globalStyles.input}
+                        placeholder='Market value per gram'
+                        keyboardType= 'numeric'
+                        onChange={(value) => setValue(value.nativeEvent.text)}
+                        />
+                        <Text style={globalStyles.inputCaption}>WEIGHT OF GOLD BAR/JEWELLERY:</Text>
                         <TextInput
                         onChangeText={props.handleChange('weight')}
                         value = {weight}
@@ -35,7 +45,7 @@ export default function Gold ({navigation}) {
                         />
                         
                         <FlatButton onPress={() => {
-                            setAppStore({ ...appStore, gold: {weight}, 
+                            setAppStore({ ...appStore, gold: {weight, value}, 
                             results: {
                                 ...appStore.results,
                                 gold: {

@@ -9,16 +9,15 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center'
     },
     ZakatText: {
-        fontFamily: 'yellowtail',
+        fontFamily: 'oswaldBold',
         textAlign: 'center',
         marginTop: 20,
         fontSize: 30,
-        fontWeight: 'bold',
         color: '#7FFFD4'
     },
     container: {
         flex: 1,
-        padding: 20,
+        padding: 10,
       },
     input: {
         borderWidth: 1,
@@ -46,13 +45,14 @@ export const globalStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginLeft: 10,
+        marginTop: -5,
         textDecorationLine: 'underline',
     },
     savingsHead2: {
         fontSize: 18,
         fontWeight: 'bold',
         marginLeft: 10,
-        margin: 20,
+        marginTop: 20,
         textDecorationLine: 'underline',
     },
     netAmt: {
@@ -106,7 +106,8 @@ export const globalStyles = StyleSheet.create({
       },
       homeBG: {
           backgroundColor: 'black'
-      }
+      },
+      
 })
 
 
