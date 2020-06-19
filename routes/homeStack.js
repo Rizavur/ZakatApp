@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 // import { createStackNavigator } from '@react-navigation/stack';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, HeaderBarItem } from 'react-navigation-stack';
+import { Colors } from 'react-native-paper';
 import { createAppContainer } from 'react-navigation';
 import Home from '../screens/home';
 import Savings from '../screens/savings';
 import Business from '../screens/business';
-import Gold from '../screens/gold';
+import OtherAssets from '../screens/otherAssets';
 import Shares from '../screens/shares';
 import Insurance from '../screens/insurance';
 import Test from '../screens/test';
@@ -32,25 +33,48 @@ const screens = {
         navigationOptions: () => ({
             title: 'Zakat Calculator',
             headerTitleStyle: styles.headerTitleStyle,
+            headerStyle: { backgroundColor: '#085e72'},
           }),
     },
     Test: {
         screen: Test
     },
     Savings: {
-        screen: Savings
+        screen: Savings,
+        navigationOptions: () => ({
+            headerTitleStyle: styles.header,
+            headerStyle: { backgroundColor: Colors.blue900},
+            
+        }),
     },
     Business: {
-        screen: Business
+        screen: Business,
+        navigationOptions: () => ({
+            headerTitleStyle: styles.header,
+            headerStyle: { backgroundColor: Colors.blue900},
+        }),
     },
-    Gold: {
-        screen: Gold
+    OtherAssets: {
+        screen: OtherAssets,
+        navigationOptions: () => ({
+            title: 'Other Assets',
+            headerTitleStyle: styles.header,
+            headerStyle: { backgroundColor: Colors.blue900},
+        }),
     },
     Shares: {
-        screen: Shares
+        screen: Shares,
+        navigationOptions: () => ({
+            headerTitleStyle: styles.header,
+            headerStyle: { backgroundColor: Colors.blue900},
+        }),
     },
     Insurance: {
-        screen: Insurance
+        screen: Insurance,
+        navigationOptions: () => ({
+            headerTitleStyle: styles.header,
+            headerStyle: { backgroundColor: Colors.blue900},
+        }),
     },
 }
 
@@ -59,7 +83,11 @@ const styles = StyleSheet.create({
         flex: 1,
         fontFamily: 'yellowtail',
         fontSize: 30,
-
+        alignSelf: 'center',
+        color: 'white'
+    },
+    header: {
+        color: 'white',
     }
 })
 

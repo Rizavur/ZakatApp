@@ -3,7 +3,7 @@ import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import { getNumeric } from '../utils/numberUtil';
-
+import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 
@@ -111,6 +111,7 @@ export default function SmallScreen ({ route, navigation }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -140,6 +141,7 @@ export default function SmallScreen ({ route, navigation }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -169,6 +171,7 @@ export default function SmallScreen ({ route, navigation }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -200,6 +203,7 @@ export default function SmallScreen ({ route, navigation }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -238,9 +242,9 @@ export default function SmallScreen ({ route, navigation }) {
     const businessSmallZakat = ((businessSmallNet)/100 * 2.5).toFixed(2);
 
     return(
-        
+    <View style = {globalStyles.container}>
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <ScrollView style = {globalStyles.container}>
+        <ScrollView>
             <Formik
                 initialValues= {{
                     ...businessValue.amountACA,
@@ -251,7 +255,7 @@ export default function SmallScreen ({ route, navigation }) {
             >
             {props => (
                 <View style = {globalStyles.container}>
-                        <Text style={globalStyles.savingsHead}>Amount For The Year:</Text>
+                        <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= '(+) Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
@@ -263,7 +267,7 @@ export default function SmallScreen ({ route, navigation }) {
                         height={290} 
                         form={LessCurrentLiabilities(props)}/>
                 
-                        <Text style={globalStyles.savingsHead2}>Adjustments:</Text>
+                        <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
                         title='(+) Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
@@ -277,8 +281,14 @@ export default function SmallScreen ({ route, navigation }) {
                 </View>
             )}
             </Formik>  
-
-            <FlatButton onPress={() => {
+        </ScrollView>
+        </TouchableWithoutFeedback>
+        <IconButton
+                icon="check"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                onPress={() => {
                 setAppStore(
                     { ...appStore, 
                     business: {...appStore.business, 
@@ -292,9 +302,6 @@ export default function SmallScreen ({ route, navigation }) {
                     }
                     });
                     route.params.navigate('Home')}} 
-                    text='Calculate' />
-            <Text style={globalStyles.netAmt}>Net Business Assets: ${businessSmallNet}</Text>
-            <Text style={globalStyles.netAmt}>Business Zakat: ${businessSmallZakat}</Text>
-        </ScrollView>
-        </TouchableWithoutFeedback>
+            />
+        </View>
     )}

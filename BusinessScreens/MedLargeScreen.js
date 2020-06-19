@@ -3,7 +3,7 @@ import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import { getNumeric } from '../utils/numberUtil';
-
+import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 
@@ -232,6 +232,7 @@ export default function MedLargeScreen ({ route }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -261,6 +262,7 @@ export default function MedLargeScreen ({ route }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -290,6 +292,7 @@ export default function MedLargeScreen ({ route }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -321,6 +324,7 @@ export default function MedLargeScreen ({ route }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -350,6 +354,7 @@ export default function MedLargeScreen ({ route }) {
                     clearTextOnFocus
                     style={globalStyles.input}
                     placeholder={element.placeholder}
+                    placeholderTextColor={Colors.grey800}
                     keyboardType= 'numeric'
                     onChange={(value) => {
                         setBusinessValue({
@@ -387,9 +392,9 @@ export default function MedLargeScreen ({ route }) {
     const businessMedLargeZakat = ((businessMedLargeNet)/100 * 2.5).toFixed(2);
 
     return(
-        
+    <View  style = {globalStyles.container}>
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <ScrollView style = {globalStyles.container}>
+        <ScrollView>
             <Formik
                 initialValues= {{
                     ...businessValue.amountACA,
@@ -401,7 +406,7 @@ export default function MedLargeScreen ({ route }) {
             >
             {props => (
                 <View style = {globalStyles.container}>
-                        <Text style={globalStyles.savingsHead}>Amount For The Year:</Text>
+                        <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= '(+) Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
@@ -413,7 +418,7 @@ export default function MedLargeScreen ({ route }) {
                         height={650} 
                         form={LessCurrentLiabilities(props)}/>
                 
-                        <Text style={globalStyles.savingsHead2}>Adjustments:</Text>
+                        <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
                         title='(+) Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
@@ -432,8 +437,14 @@ export default function MedLargeScreen ({ route }) {
                 </View>
             )}
             </Formik>  
-
-            <FlatButton onPress={() => {
+        </ScrollView>
+        </TouchableWithoutFeedback>
+        <IconButton
+                icon="check"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                onPress={() => {
                 setAppStore(
                     { ...appStore, 
                     business: {...appStore.business,
@@ -446,10 +457,7 @@ export default function MedLargeScreen ({ route }) {
                         }
                     }
                     });
-                    route.params.navigate('Home')}} 
-                    text='Calculate' />
-            <Text style={globalStyles.netAmt}>Net Business Assets: ${businessMedLargeNet}</Text>
-            <Text style={globalStyles.netAmt}>Business Zakat: ${businessMedLargeZakat}</Text>
-        </ScrollView>
-        </TouchableWithoutFeedback>
+                    route.params.navigate('Home')}}
+            />
+        </View>
     )}

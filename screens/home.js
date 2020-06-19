@@ -171,15 +171,6 @@ export default function Home ({navigation}) {
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card>
 
-            <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Business'})}>
-                <Card.Title title="Business"/> 
-                <Card.Content>
-                    <Paragraph>Total: ${getNumeric(appStore.results.businessSmall.net) + getNumeric(appStore.results.businessMedLar.net)}</Paragraph>
-                    <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${getNumeric(appStore.results.businessSmall.zakat) + getNumeric(appStore.results.businessMedLar.zakat)}</Paragraph>
-                </Card.Content>
-                <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
-            </Card>
-
             <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Shares'})}>
                 <Card.Title title="Shares"/> 
                 <Card.Content>
@@ -189,8 +180,17 @@ export default function Home ({navigation}) {
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card>
 
-            <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Gold'})}>
-                <Card.Title title="Gold"/> 
+            <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Business'})}>
+                <Card.Title title="Business"/> 
+                <Card.Content>
+                    <Paragraph>Total: ${getNumeric(appStore.results.businessSmall.net) + getNumeric(appStore.results.businessMedLar.net)}</Paragraph>
+                    <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${getNumeric(appStore.results.businessSmall.zakat) + getNumeric(appStore.results.businessMedLar.zakat)}</Paragraph>
+                </Card.Content>
+                <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
+            </Card>
+
+            <Card style={globalStyles.button} onPress={() => pressHandler({text: 'OtherAssets'})}>
+                <Card.Title title="Other Assets"/> 
                 <Card.Content>
                     <Paragraph>Total: ${appStore.results.gold.net}</Paragraph>
                     <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.gold.zakat}</Paragraph>
@@ -198,15 +198,14 @@ export default function Home ({navigation}) {
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card>
 
-            
-            <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Insurance'})}>
+            {/* <Card style={globalStyles.button} onPress={() => pressHandler({text: 'Insurance'})}>
                 <Card.Title title="Insurance"/> 
                 <Card.Content>
                     <Paragraph>Total: ${appStore.results.insurance.net}</Paragraph>
                     <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.insurance.zakat}</Paragraph>
                 </Card.Content>
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
-            </Card>
+            </Card> */}
 
 
         </ScrollView>

@@ -1,32 +1,27 @@
 import { StyleSheet } from 'react-native';
-import { DefaultTheme, configureFonts } from 'react-native-paper';
+import { DefaultTheme, Colors } from 'react-native-paper';
 
 export const globalStyles = StyleSheet.create({
-    TestView: {
-        flex:1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     ZakatText: {
-        fontFamily: 'oswaldBold',
+        fontFamily: 'oswaldLight',
         textAlign: 'center',
         marginTop: 20,
         fontSize: 30,
-        color: '#7FFFD4'
+        color: 'white'
     },
     container: {
         flex: 1,
-        padding: 10,
+        backgroundColor: Colors.grey900,
+        paddingBottom: 10
       },
     input: {
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: 'black',
         marginHorizontal: 10,
         padding: 8,
         fontSize: 16,
         borderRadius: 15,
-        color: 'white'
+        color: 'black',
     },
     inputCaption: {
         fontSize: 18,
@@ -35,18 +30,18 @@ export const globalStyles = StyleSheet.create({
     inputCaptionAccordion: {
         fontSize: 18,
         padding: 10,
-        color: 'white'
+        color: 'black',
     },
     inputCaption2: {
         fontSize: 18,
         padding: 10,
     },
     savingsHead: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 20,
         marginLeft: 10,
-        marginTop: -5,
-        textDecorationLine: 'underline',
+        marginTop: 10,
+        color: 'white',
+        textAlign: 'center'
     },
     savingsHead2: {
         fontSize: 18,
@@ -105,7 +100,7 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
       },
       homeBG: {
-          backgroundColor: 'black'
+          backgroundColor: Colors.grey900
       },
       
 })
@@ -116,7 +111,7 @@ export const paperStyles = {
     roundness: 5,
     colors: {
         ...DefaultTheme.colors,
-        surface: '#7FFFD4',
+        surface: '#aff',
         text: 'black',
         primary: 'black',
 

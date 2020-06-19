@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Button } from 'react-native';
+import { Colors } from 'react-native-paper';
 
 export default function Accordion(props) {
   const [active, setActiveState] = useState(false);
@@ -35,22 +36,22 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 0,
     paddingHorizontal: 0,
-    backgroundColor: 'rgb(25, 25, 112)',
+    backgroundColor: Colors.blue900,
     marginLeft: 8,
     marginRight: 8,
     opacity: 70,
   },
   buttonText: {
     marginVertical: 15,
+    fontFamily: 'oswaldBold',
     color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
+    fontSize: 20,
+    alignSelf: 'center',
     height: 30
   },
   content: {
     height: 0,
-    backgroundColor: 'blue',
+    backgroundColor: '#aff',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
@@ -61,13 +62,4 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 16,
   },
-  removeButton: {
-    color: 'red',
-    textAlign: 'left',
-    alignSelf: 'flex-start',
-    position: 'absolute',
-    marginLeft: 20,
-    marginTop: 0,
-    fontSize: 40
-  }
 });

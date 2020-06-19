@@ -1,8 +1,9 @@
 import React, { useState, Component } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import FlatButton from '../shared/buttons';
+import { IconButton, Colors } from 'react-native-paper';
 
 import { getNumeric } from '../utils/numberUtil';
 
@@ -13,6 +14,7 @@ export default function Test ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
+
 
     const getAccountsWithNewInterest = (key, interest) => {
         const currentAccounts = accounts;
@@ -45,6 +47,7 @@ export default function Test ({navigation}) {
                         value = {accounts[index].lowestAmt}
                         style={globalStyles.input}
                         placeholder='Enter lowest amount'
+                        placeholderTextColor={Colors.grey800}
                         keyboardType= 'numeric'
                         onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
@@ -57,6 +60,7 @@ export default function Test ({navigation}) {
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
                         style={globalStyles.input}
                         placeholder='Enter interest earned'
+                        placeholderTextColor={Colors.grey800}
                         keyboardType= 'numeric'
                     />
                 </View>
@@ -91,46 +95,55 @@ export default function Test ({navigation}) {
     }
 
     return(
+        <View style = {globalStyles.container}>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <ScrollView style = {globalStyles.container}>
-        <FlatButton 
-        text='Add' 
-        onPress={() => {
-            setAccounts((accounts.length > 0) 
-                ? [...accounts, {
-                    key: accordionKey(), 
-                    interest: '', 
-                    lowestAmt: ''
-                }]
-                : []
-            )}
-        }
-        />
-            {accounts.map((account,index) => 
-            <Accordion 
-            remove={true} 
-            doRemove={() => doRemove(index)} 
-            title={accordionTitle(account)} 
-            height={200} 
-            form= {savingsForm(account.key, index)} 
-            />
-            )}
-            <FlatButton onPress={() => {
-                setAppStore({ 
-                    ...appStore, 
-                    savings: { accounts },
-                    results: {
-                        ...appStore.results,
-                        savings: {
-                            net: getTotalSavings(accounts), 
-                            zakat: (getTotalSavings(accounts)/100 * 2.5).toFixed(2)
-                        }
-                    }
-                });
-                navigation.navigate('Home')} } 
-                text='Calculate' 
-            />
-        </ScrollView>
+        <ScrollView >
+                {accounts.map((account,index) => 
+                <Accordion 
+                remove={true} 
+                doRemove={() => doRemove(index)} 
+                title={accordionTitle(account)} 
+                height={200} 
+                form= {savingsForm(account.key, index)} 
+                />
+                )}
+            </ScrollView>
         </TouchableWithoutFeedback>
+            <IconButton
+                icon="check"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={() => {
+                    setAppStore({ 
+                        ...appStore, 
+                        savings: { accounts },
+                        results: {
+                            ...appStore.results,
+                            savings: {
+                                net: getTotalSavings(accounts), 
+                                zakat: (getTotalSavings(accounts)/100 * 2.5).toFixed(2)
+                            }
+                        }
+                    });
+                    navigation.navigate('Home')} } 
+            />
+
+            <IconButton
+                icon="plus"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                onPress={() => {
+                setAccounts((accounts.length > 0) 
+                    ? [...accounts, {
+                        key: accordionKey(), 
+                        interest: '', 
+                        lowestAmt: ''
+                    }]
+                    : []
+                )}}   
+            />
+        </View>
         )
     }

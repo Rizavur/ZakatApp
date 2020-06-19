@@ -7,7 +7,7 @@ import { getNumeric } from '../utils/numberUtil';
 
 import { globalStyles } from '../styles/global';
 
-export default function Gold ({navigation}) {
+export default function OtherAssets ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
     const [weight, setWeight] = useState(appStore.gold.weight);
     const [value, setValue] = useState(appStore.gold.value);

@@ -3,9 +3,8 @@ import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard }
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
-
+import { IconButton, Colors } from 'react-native-paper';
 import { getNumeric } from '../utils/numberUtil';
-
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 
@@ -45,6 +44,7 @@ export default function Shares ({navigation}) {
                         value = {accounts[index].perUnit}
                         style={globalStyles.input}
                         placeholder='Enter market value per unit'
+                        placeholderTextColor={Colors.grey800}
                         keyboardType= 'numeric'
                         onChange={(value) => setAccounts(getAccountsWithNewPerUnit(key, value.nativeEvent.text))}
                     />
@@ -57,6 +57,7 @@ export default function Shares ({navigation}) {
                         onChange={(value) => setAccounts(getAccountsWithNewNoAccounts(key, value.nativeEvent.text))}
                         style={globalStyles.input}
                         placeholder='Enter no. of units'
+                        placeholderTextColor={Colors.grey800}
                         keyboardType= 'numeric'
                     />
                 </View>
@@ -91,21 +92,9 @@ export default function Shares ({navigation}) {
     }
 
     return(
+        <View style = {globalStyles.container}>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <ScrollView style = {globalStyles.container}>
-        <FlatButton 
-        text='Add' 
-        onPress={() => {
-            setAccounts((accounts.length > 0) 
-                ? [...accounts, {
-                    key: accordionKey(), 
-                    perUnit: '', 
-                    noUnit: ''
-                }]
-                : []
-            )}
-        }
-        />
+        <ScrollView>
             {accounts.map((account,index) => 
             <Accordion 
             remove={true} 
@@ -115,8 +104,15 @@ export default function Shares ({navigation}) {
             form= {sharesForm(account.key, index)} 
             />
             )}
-            <FlatButton onPress={() => {
-                setAppStore({ 
+        </ScrollView>
+        </TouchableWithoutFeedback>
+        <IconButton
+                icon="check"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={() => {
+                    setAppStore({ 
                     ...appStore, 
                     shares: { accounts },
                     results: {
@@ -128,73 +124,23 @@ export default function Shares ({navigation}) {
                     }
                 });
                 navigation.navigate('Home')} } 
-                text='Calculate' 
             />
-        </ScrollView>
-        </TouchableWithoutFeedback>
+
+            <IconButton
+                icon="plus"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                onPress={() => {
+                setAccounts((accounts.length > 0) 
+                    ? [...accounts, {
+                        key: accordionKey(), 
+                        perUnit: '', 
+                        noUnit: ''
+                    }]
+                    : []
+                )}}
+            />
+        </View>
         )
     }
-
-// import React, { useState } from 'react';
-// import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
-// import { Formik } from 'formik';
-// import FlatButton from '../shared/buttons';
-
-// import { globalStyles } from '../styles/global';
-
-// export default function Shares ({navigation}) {
-
-//     const { setAppStore, appStore } = navigation.state.params;
-
-//     const [perUnit, setPerUnit] = useState(appStore.shares.perUnit);
-//     const [noUnit, setNoUnit] = useState(appStore.shares.noUnit);
-
-//     const sharesNet = (perUnit * noUnit).toFixed(2);
-//     const sharesZakat = ((sharesNet)/100 *2.5).toFixed(2);
-    
-//     return(
-//     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-//         <ScrollView style = {globalStyles.container}>
-//             <Formik
-//             initialValues= {{perUnit: perUnit, noUnit: noUnit}}
-//             >
-//             {props => (
-//                 <View style = {globalStyles.container}>
-//                         <Text style={globalStyles.savingsHead}>Share 1</Text>
-//                         <Text style={globalStyles.inputCaption}>Market value per unit share of:</Text>
-//                         <TextInput
-//                         clearTextOnFocus
-//                         onChangeText={props.handleChange('perUnit')}
-//                         value = {perUnit}
-//                         onChange={(value) => setPerUnit(value.nativeEvent.text)}
-//                         style={globalStyles.input}
-//                         placeholder='Market value per unit'
-//                         keyboardType= 'numeric'
-//                         />
-//                         <Text style={globalStyles.inputCaption}>Enter No of units of shares:</Text>
-//                         <TextInput
-//                         clearTextOnFocus
-//                         onChangeText={props.handleChange('noUnit')}
-//                         value = {noUnit}
-//                         onChange={(value) => setNoUnit(value.nativeEvent.text)}
-//                         style={globalStyles.input}
-//                         placeholder='No of units of shares'
-//                         keyboardType= 'numeric'
-//                         />
-                        
-//                         <FlatButton onPress={() => {
-//                             setAppStore(
-//                                 { ...appStore, 
-//                                 shares: {perUnit: (perUnit), noUnit: (noUnit)}, 
-//                                 results: {...appStore.results, shares: {net: sharesNet ,zakat: sharesZakat}}
-//                                 });
-//                                 navigation.navigate('Home')}} 
-//                                 text='Calculate' />
-//                         <Text style={globalStyles.netAmt}>Net Shares Assets: ${sharesNet}</Text>
-//                         <Text style={globalStyles.netAmt}>Shares Zakat: ${sharesZakat}</Text>
-//                 </View>
-//                 )}
-//             </Formik>
-//         </ScrollView>
-//         </TouchableWithoutFeedback>
-//     )}

@@ -8,6 +8,7 @@ import { getNumeric } from '../utils/numberUtil';
 
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
+import { List } from 'react-native-paper';
 
 export default function Test ({navigation}) {
 
