@@ -344,18 +344,7 @@ export default function SmallScreen ({ route, navigation }) {
                         step={1}
                         value= {ownership}
                         onValueChange={_.debounce(((ownership) => setOwnership(ownership)), 33)}
-                        onSlidingComplete={setAppStore({
-                            ...appStore,
-                            business: {
-                                ...appStore.business,
-                                ownership: {
-                                    ...appStore.business.ownership,
-                                    small: ownership
-                                }
-                            }}
-                        )}
-                        >
-                        </Slider>
+                        />
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= 'Add Current Assets' 
@@ -392,7 +381,11 @@ export default function SmallScreen ({ route, navigation }) {
                 onPress={() => {
                 setAppStore(
                     { ...appStore, 
-                    business: {...appStore.business, 
+                    business: {...appStore.business,
+                                ownership: {
+                                    ...appStore.business.ownership,
+                                    small: ownership,
+                                    },
                                 small: businessValue},
                     results: {
                         ...appStore.results,

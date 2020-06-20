@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert, Slider } from 'react-native';
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import { getNumeric } from '../utils/numberUtil';
 import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
+import _ from 'lodash';
 import Accordion from '../shared/accordion';
 
 export default function MedLargeScreen ({ route }) {
     const { setAppStore, appStore } = route.params.state.params;
     const [businessValue, setBusinessValue] = useState(appStore.business.medLarge);
+    const [ownership, setOwnership] = useState(appStore.business.ownership.medLarge);
 
     //AMOUNT object
     const fields = {
@@ -525,11 +527,21 @@ export default function MedLargeScreen ({ route }) {
                     ...businessValue.amountLCL,
                     ...businessValue.adjustmentsACA,
                     ...businessValue.adjustmentsACL,
-                    ...businessValue.adjustmentsLCA
+                    ...businessValue.adjustmentsLCA,
+                    ownership: ownership
                 }}
             >
             {props => (
                 <View style = {globalStyles.container}>
+                        <Text style={globalStyles.savingsHead}>Muslim Ownership {ownership}%</Text>
+                        <Slider
+                        style={{ width: 300, alignSelf: 'center'}}
+                        maximumValue={100}
+                        minimumValue={0}
+                        step={1}
+                        value= {ownership}
+                        onValueChange={_.debounce(((ownership) => setOwnership(ownership)), 33)}
+                        />
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= 'Add Current Assets' 
@@ -572,11 +584,15 @@ export default function MedLargeScreen ({ route }) {
                 setAppStore(
                     { ...appStore, 
                     business: {...appStore.business,
+                                ownership: {
+                                    ...appStore.business.ownership,
+                                    medLarge: ownership,
+                                    },
                                 medLarge: businessValue },
                     results: {
                         ...appStore.results,
                         businessMedLar: {
-                            net: businessMedLargeNet,
+                            net: businessMedLargeNet*(ownership/100),
                             zakat: businessMedLargeZakat,
                         }
                     }
