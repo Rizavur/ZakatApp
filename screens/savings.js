@@ -4,9 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import FlatButton from '../shared/buttons';
 import { IconButton, Colors } from 'react-native-paper';
-
 import { getNumeric } from '../utils/numberUtil';
-
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 

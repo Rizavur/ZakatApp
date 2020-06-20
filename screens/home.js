@@ -104,12 +104,24 @@ export default function Home ({navigation}) {
             weight: '',
             value: ''
         },
+        silver: {
+            weight: '',
+            value: ''
+        },
         insurance: {
             surrender: '',
+        },
+        others: {
+            add: '',
+            minus: ''
         },
         results: {
             savings: {
                 net: 0, 
+                zakat: 0
+            },
+            shares: {
+                net: 0,
                 zakat: 0
             },
             businessSmall: {
@@ -124,11 +136,15 @@ export default function Home ({navigation}) {
                 net: 0,
                 zakat: 0
             },
-            shares: {
+            silver: {
                 net: 0,
                 zakat: 0
             },
             insurance: {
+                net: 0,
+                zakat: 0
+            },
+            others: {
                 net: 0,
                 zakat: 0
             }
@@ -138,11 +154,13 @@ export default function Home ({navigation}) {
     const results = appStore.results;
 
     const Zakat = (parseFloat(results.savings.zakat) +
+                parseFloat(results.shares.zakat) +
                 parseFloat(results.businessSmall.zakat) +
                 parseFloat(results.businessMedLar.zakat) +
                 parseFloat(results.gold.zakat) +
-                parseFloat(results.shares.zakat) +
-                parseFloat(results.insurance.zakat)).toFixed(2);    
+                parseFloat(results.silver.zakat) +
+                parseFloat(results.insurance.zakat) +
+                parseFloat(results.others.zakat)).toFixed(2);    
 
     const pressHandler = ({ text }) => {
         navigation.navigate(text, { appStore, setAppStore });
@@ -192,7 +210,11 @@ export default function Home ({navigation}) {
             <Card style={globalStyles.button} onPress={() => pressHandler({text: 'OtherAssets'})}>
                 <Card.Title title="Other Assets"/> 
                 <Card.Content>
-                    <Paragraph>Total: ${appStore.results.gold.net}</Paragraph>
+                    <Paragraph>Total: ${(getNumeric(results.gold.net) +
+                                        getNumeric(results.silver.net) +
+                                        getNumeric(results.insurance.net) +
+                                        getNumeric(results.others.net)).toFixed(2)}
+                    </Paragraph>
                     <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.gold.zakat}</Paragraph>
                 </Card.Content>
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
@@ -206,7 +228,7 @@ export default function Home ({navigation}) {
                 </Card.Content>
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card> */}
-
+            <Text style={globalStyles.ZakatText}>Nisab Value: $ get from API</Text>
 
         </ScrollView>
         </PaperProvider>
