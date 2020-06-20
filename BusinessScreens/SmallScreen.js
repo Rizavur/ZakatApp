@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert, Slider } from 'react-native';
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import * as yup from 'yup';
@@ -7,10 +7,13 @@ import { getNumeric } from '../utils/numberUtil';
 import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
+import _ from 'lodash';
+import NumberFormat from 'react-number-format';
 
 export default function SmallScreen ({ route, navigation }) {
     const { setAppStore, appStore } = route.params.state.params;
     const [businessValue, setBusinessValue] = useState(appStore.business.small);
+    const [ownership, setOwnership] = useState(appStore.business.ownership.small);
 
     //AMOUNT object
     const fields = {
@@ -278,6 +281,10 @@ export default function SmallScreen ({ route, navigation }) {
                 ...appStore, 
                 business: {
                     ...appStore.business,
+                    ownership: {
+                        ...appStore.business.ownership,
+                        small: 100
+                    },
                     small: { 
                             amountACA: {
                                 cash: '',
@@ -313,61 +320,42 @@ export default function SmallScreen ({ route, navigation }) {
       ],
       { cancelable: false }
     );
-    const [ownership, setOwnership] = useState('100%');
-
-    const ownershipSchema = yup.object({
-        ownership: yup.string()
-          .required('Required')
-          .test('is-num-1-100', 'Percentage must be between 1 - 100', (val) => {
-            return parseInt(val) <= 100 && parseInt(val) > 0;
-          })
-        })
-   
 
     return(
     <View style = {globalStyles.container}>
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView>
-            {/* <Formik
-                initialValues = {{ownership}}
-                validationSchema = {ownershipSchema}
-                onSubmit={(values) => {
-                    setOwnership(values);
-                }}>
-                {props => (
-                    <View style={globalStyles.container}>
-                        <View style={globalStyles.ownershipContainer}>
-                        <Text style={globalStyles.savingsHead2}>Percentage Muslim Owned:</Text>
-                        <TextInput 
-                            onChangeText={props.handleChange('ownership')}
-                            onBlur={props.handleBlur('ownership')} 
-                            value={props.values.ownership}
-                            keyboardType= 'numeric'
-                            style={{...globalStyles.input, color: 'white', alignSelf: 'center', marginTop: 15, paddingLeft: 5}}
-                            placeholder='100%'
-                            placeholderTextColor={Colors.grey600}
-                        />
-                        </View>
-                        <Text style={globalStyles.errorText}>{props.touched.ownership && props.errors.ownership}</Text>
-                        <IconButton 
-                        icon='check' 
-                        color={Colors.blueA200}
-                        onPress={props.handleSubmit} 
-                        style = {{backgroundColor: 'black'}}
-                        />
-                    </View>
-                )}
-            </Formik> */}
             <Formik
                 initialValues= {{
                     ...businessValue.amountACA,
                     ...businessValue.amountLCL,
                     ...businessValue.adjustmentsACA,
-                    ...businessValue.adjustmentsLCA
+                    ...businessValue.adjustmentsLCA,
+                    ownership: ownership
                 }}
             >
             {props => (
                 <View style = {globalStyles.container}>
+                        <Text style={globalStyles.savingsHead}>Muslim Ownership {ownership}%</Text>
+                        <Slider
+                        style={{ width: 300, alignSelf: 'center'}}
+                        maximumValue={100}
+                        minimumValue={0}
+                        step={1}
+                        value= {ownership}
+                        onValueChange={_.debounce(((ownership) => setOwnership(ownership)), 33)}
+                        onSlidingComplete={setAppStore({
+                            ...appStore,
+                            business: {
+                                ...appStore.business,
+                                ownership: {
+                                    ...appStore.business.ownership,
+                                    small: ownership
+                                }
+                            }}
+                        )}
+                        >
+                        </Slider>
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= 'Add Current Assets' 
@@ -409,7 +397,7 @@ export default function SmallScreen ({ route, navigation }) {
                     results: {
                         ...appStore.results,
                         businessSmall: {
-                            net: businessSmallNet,
+                            net: businessSmallNet*(ownership/100),
                             zakat: businessSmallZakat,
                         }
                     }

@@ -16,13 +16,14 @@ export const globalStyles = StyleSheet.create({
       },
     ownershipContainer: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     input: {
         borderWidth: 1,
-        borderColor: 'white',
-        padding: 3,
-        paddingLeft: 10,
+        borderColor: 'black',
+        marginHorizontal: 10,
+        padding: 8,
         fontSize: 16,
         borderRadius: 15,
         color: 'black',
@@ -57,11 +58,8 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center'
     },
     savingsHead2: {
-        fontSize: 17,
+        fontSize: 20,
         color: 'white',
-        marginLeft: 15,
-        marginTop: 20,
-        marginRight: 10,
     },
     netAmt: {
         textAlign: 'center',

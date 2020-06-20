@@ -28,6 +28,10 @@ export default function Home ({navigation}) {
             ]
         },
         business: {
+            ownership:{
+                small: 100,
+                medLarge: 100
+            },
             small: {
                 amountACA: {
                     cash: '',
