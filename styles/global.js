@@ -14,7 +14,20 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: Colors.grey900,
         paddingBottom: 10
       },
+    ownershipContainer: {
+        flex: 1,
+        flexDirection: 'row'
+    },
     input: {
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 3,
+        paddingLeft: 10,
+        fontSize: 16,
+        borderRadius: 15,
+        color: 'black',
+    },
+    inputOwnership: {
         borderWidth: 1,
         borderColor: 'black',
         marginHorizontal: 10,
@@ -44,11 +57,11 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center'
     },
     savingsHead2: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginLeft: 10,
+        fontSize: 17,
+        color: 'white',
+        marginLeft: 15,
         marginTop: 20,
-        textDecorationLine: 'underline',
+        marginRight: 10,
     },
     netAmt: {
         textAlign: 'center',
@@ -102,7 +115,12 @@ export const globalStyles = StyleSheet.create({
       homeBG: {
           backgroundColor: Colors.grey900
       },
-      
+      errorText: {
+        color: 'crimson',
+        fontWeight: 'bold',
+        marginTop: 6,
+        textAlign: 'center',
+      },
 })
 
 

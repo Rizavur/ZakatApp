@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
+import * as yup from 'yup';
 import { getNumeric } from '../utils/numberUtil';
 import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
@@ -97,7 +98,6 @@ export default function SmallScreen ({ route, navigation }) {
         ]
     } 
 
-   
     const AddCurrentAssets = (props) => {
         return fields.addCurrentAssets.map((element, key) => {
             return (
@@ -241,10 +241,123 @@ export default function SmallScreen ({ route, navigation }) {
     const businessSmallNet = (getBusinessNet()).toFixed(2);
     const businessSmallZakat = ((businessSmallNet)/100 * 2.5).toFixed(2);
 
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Small Business",
+      "Delete all inputs in small business?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+            {setBusinessValue({
+                amountACA: {
+                    cash: '',
+                    bank: '',
+                    stock: '',
+                    debtors: '',
+                    amountACAothers: '',
+                },
+                amountLCL: {
+                    creditors: '',
+                    operatingExpenses: '',
+                    amountLCLothers: '',
+                },
+                adjustmentsACA: {
+                    donation: '',
+                    personal: '',
+                    adjustmentsACAothers: '',
+                },
+                adjustmentsLCA: {
+                    adjustmentStock: '',
+                    adjustmentsLCAothers: '',
+                }}
+            ); setAppStore({ 
+                ...appStore, 
+                business: {
+                    ...appStore.business,
+                    small: { 
+                            amountACA: {
+                                cash: '',
+                                bank: '',
+                                stock: '',
+                                debtors: '',
+                                amountACAothers: '',
+                            },
+                            amountLCL: {
+                                creditors: '',
+                                operatingExpenses: '',
+                                amountLCLothers: '',
+                            },
+                            adjustmentsACA: {
+                                donation: '',
+                                personal: '',
+                                adjustmentsACAothers: '',
+                            },
+                            adjustmentsLCA: {
+                                adjustmentStock: '',
+                                adjustmentsLCAothers: '',
+                            }
+                        }
+                 },
+                results: {
+                    ...appStore.results,
+                    businessSmall: {
+                        net: 0,
+                        zakat: 0
+                    },
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
+    const [ownership, setOwnership] = useState('100%');
+
+    const ownershipSchema = yup.object({
+        ownership: yup.string()
+          .required('Required')
+          .test('is-num-1-100', 'Percentage must be between 1 - 100', (val) => {
+            return parseInt(val) <= 100 && parseInt(val) > 0;
+          })
+        })
+   
+
     return(
     <View style = {globalStyles.container}>
     <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView>
+            {/* <Formik
+                initialValues = {{ownership}}
+                validationSchema = {ownershipSchema}
+                onSubmit={(values) => {
+                    setOwnership(values);
+                }}>
+                {props => (
+                    <View style={globalStyles.container}>
+                        <View style={globalStyles.ownershipContainer}>
+                        <Text style={globalStyles.savingsHead2}>Percentage Muslim Owned:</Text>
+                        <TextInput 
+                            onChangeText={props.handleChange('ownership')}
+                            onBlur={props.handleBlur('ownership')} 
+                            value={props.values.ownership}
+                            keyboardType= 'numeric'
+                            style={{...globalStyles.input, color: 'white', alignSelf: 'center', marginTop: 15, paddingLeft: 5}}
+                            placeholder='100%'
+                            placeholderTextColor={Colors.grey600}
+                        />
+                        </View>
+                        <Text style={globalStyles.errorText}>{props.touched.ownership && props.errors.ownership}</Text>
+                        <IconButton 
+                        icon='check' 
+                        color={Colors.blueA200}
+                        onPress={props.handleSubmit} 
+                        style = {{backgroundColor: 'black'}}
+                        />
+                    </View>
+                )}
+            </Formik> */}
             <Formik
                 initialValues= {{
                     ...businessValue.amountACA,
@@ -257,24 +370,24 @@ export default function SmallScreen ({ route, navigation }) {
                 <View style = {globalStyles.container}>
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
-                        title= '(+) Add Current Assets' 
+                        title= 'Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
                         height = {470} 
                         form={AddCurrentAssets(props)} />
                         <Accordion 
-                        title ='(-) Less Current Liabilities' 
+                        title ='Less Current Liabilities' 
                         value={getTotal(businessValue.amountLCL)} 
                         height={290} 
                         form={LessCurrentLiabilities(props)}/>
                 
                         <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
-                        title='(+) Add Current Assets' 
+                        title='Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
                         height={290} 
                         form={AdjustmentAssets(props)}/>
                         <Accordion 
-                        title='(-) Less Current Assets' 
+                        title='Less Current Assets' 
                         value={getTotal(businessValue.adjustmentsLCA)} 
                         height={200} 
                         form={AdjustmentsLess(props)}/>
@@ -302,6 +415,13 @@ export default function SmallScreen ({ route, navigation }) {
                     }
                     });
                     route.params.navigate('Home')}} 
+            />
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
             />
         </View>
     )}

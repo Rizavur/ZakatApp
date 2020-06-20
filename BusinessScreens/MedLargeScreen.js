@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import { getNumeric } from '../utils/numberUtil';
@@ -388,6 +388,130 @@ export default function MedLargeScreen ({ route }) {
                - getTotal(businessValue.adjustmentsLCA);
     }
 
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Medium/Large Business",
+      "Delete all inputs in medium/large business?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+            {setBusinessValue({
+                amountACA: {
+                    bankBalance: '',
+                    cashInHand: '',
+                    fixedDeposit: '',
+                    prepaidExpenses: '',
+                    closingStock: '',
+                    tradeDebtors: '',
+                    loanReceivable: '',
+                    staffWelfareFund: '',
+                    staffLoan: '',
+                    otherDeposits: '',
+                    amountACAothers: '',
+                },
+                amountLCL: {
+                    tradeDebtors: '',
+                    financialLoans: '',
+                    accruedOperatingExpenses: '',
+                    currentProvisionOfIncomeTax: '',
+                    overdraft: '',
+                    directorsFeesPayable: '',
+                    amountLCLothers: '',
+                },
+                adjustmentsACA: {
+                    donationInTheLastQuarter: '',
+                    fixedAssetPurchasedInLastQuarter: '',
+                    adjustmentsACAothers: '',
+                },
+                adjustmentsACL: {
+                    overdraft: '',
+                    directorsFeePayable: '',
+                    financialLoans: '',
+                    interCompanyPayables: '',
+                    adjustmentsACLothers: '',
+                },
+                adjustmentsLCA: {
+                    bankInterestReceived: '',
+                    latePaymentInterest: '',
+                    depositForUtilitiesAndTelephone: '',
+                    badDebts: '',
+                    obsoleteStocks: '',
+                    staffWelfareFunds: '',
+                    staffLoan: '',
+                    loanReceivable: '',
+                    otherDeposits: '',
+                    interCompanyReceivable: '',
+                    adjustmentsLCAothers: '',
+                }}
+            ); setAppStore({ 
+                ...appStore, 
+                business: {
+                    ...appStore.business,
+                    medLarge: {
+                        amountACA: {
+                            bankBalance: '',
+                            cashInHand: '',
+                            fixedDeposit: '',
+                            prepaidExpenses: '',
+                            closingStock: '',
+                            tradeDebtors: '',
+                            loanReceivable: '',
+                            staffWelfareFund: '',
+                            staffLoan: '',
+                            otherDeposits: '',
+                            amountACAothers: '',
+                        },
+                        amountLCL: {
+                            tradeDebtors: '',
+                            financialLoans: '',
+                            accruedOperatingExpenses: '',
+                            currentProvisionOfIncomeTax: '',
+                            overdraft: '',
+                            directorsFeesPayable: '',
+                            amountLCLothers: '',
+                        },
+                        adjustmentsACA: {
+                            donationInTheLastQuarter: '',
+                            fixedAssetPurchasedInLastQuarter: '',
+                            adjustmentsACAothers: '',
+                        },
+                        adjustmentsACL: {
+                            overdraft: '',
+                            directorsFeePayable: '',
+                            financialLoans: '',
+                            interCompanyPayables: '',
+                            adjustmentsACLothers: '',
+                        },
+                        adjustmentsLCA: {
+                            bankInterestReceived: '',
+                            latePaymentInterest: '',
+                            depositForUtilitiesAndTelephone: '',
+                            badDebts: '',
+                            obsoleteStocks: '',
+                            staffWelfareFunds: '',
+                            staffLoan: '',
+                            loanReceivable: '',
+                            otherDeposits: '',
+                            interCompanyReceivable: '',
+                            adjustmentsLCAothers: '',
+                        }
+                }},
+                results: {
+                    ...appStore.results,
+                    businessMedLar: {
+                        net: 0,
+                        zakat: 0
+                    },
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
+
     const businessMedLargeNet = (getBusinessNet()).toFixed(2);
     const businessMedLargeZakat = ((businessMedLargeNet)/100 * 2.5).toFixed(2);
 
@@ -408,29 +532,29 @@ export default function MedLargeScreen ({ route }) {
                 <View style = {globalStyles.container}>
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
-                        title= '(+) Add Current Assets' 
+                        title= 'Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
                         height = {1020} 
                         form={AddCurrentAssets(props)} />
                         <Accordion 
-                        title ='(-) Less Current Liabilities' 
+                        title ='Less Current Liabilities' 
                         value={getTotal(businessValue.amountLCL)} 
                         height={650} 
                         form={LessCurrentLiabilities(props)}/>
                 
                         <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
-                        title='(+) Add Current Assets' 
+                        title='Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
                         height={310} 
                         form={AdjustmentAssets(props)}/>
                         <Accordion 
-                        title='(+) Add Current Liabilities' 
+                        title='Add Current Liabilities' 
                         value={getTotal(businessValue.adjustmentsACL)} 
                         height={470} 
                         form={AdjustmentsLiabilities(props)}/>
                         <Accordion 
-                        title='(-) Less Current Assets' 
+                        title='Less Current Assets' 
                         value={getTotal(businessValue.adjustmentsLCA)} 
                         height={1030} 
                         form={AdjustmentsLess(props)}/>
@@ -458,6 +582,13 @@ export default function MedLargeScreen ({ route }) {
                     }
                     });
                     route.params.navigate('Home')}}
+            />
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
             />
         </View>
     )}

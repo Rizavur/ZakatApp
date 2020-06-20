@@ -213,7 +213,7 @@ export default function Home ({navigation}) {
                     <Paragraph>Total: ${(getNumeric(results.gold.net) +
                                         getNumeric(results.silver.net) +
                                         getNumeric(results.insurance.net) +
-                                        getNumeric(results.others.net)).toFixed(2)}
+                                        getNumeric(results.others.net))}
                     </Paragraph>
                     <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.gold.zakat}</Paragraph>
                 </Card.Content>
@@ -228,7 +228,7 @@ export default function Home ({navigation}) {
                 </Card.Content>
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card> */}
-            <Text style={globalStyles.ZakatText}>Nisab Value: $ get from API</Text>
+            {/* <Text style={globalStyles.ZakatText}>Nisab Value: $ get from API</Text> */}
 
         </ScrollView>
         </PaperProvider>

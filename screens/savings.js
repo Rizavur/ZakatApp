@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import FlatButton from '../shared/buttons';
@@ -13,6 +13,7 @@ export default function Test ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
 
+    const [visible, setVisible] = useState(false);
 
     const getAccountsWithNewInterest = (key, interest) => {
         const currentAccounts = accounts;
@@ -92,6 +93,46 @@ export default function Test ({navigation}) {
         }
     }
 
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Savings",
+      "Delete all accounts in savings?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+        {setAccounts([
+            {
+                key: 1,
+                lowestAmt: '',
+                interest: ''
+            },
+            ]
+            ); setAppStore({ 
+                ...appStore, 
+                savings: { 
+                    accounts: [
+                        {   key: 1,
+                            lowestAmt: '',
+                            interest: ''
+                            },
+                        ]
+                 },
+                results: {
+                    ...appStore.results,
+                    savings: {
+                        net: 0, 
+                        zakat: 0
+                    }
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
+
     return(
         <View style = {globalStyles.container}>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -111,7 +152,7 @@ export default function Test ({navigation}) {
                 icon="check"
                 color={Colors.blueA200}
                 size={40}
-                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
                     setAppStore({ 
                         ...appStore, 
@@ -131,7 +172,7 @@ export default function Test ({navigation}) {
                 icon="plus"
                 color={Colors.blueA200}
                 size={40}
-                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 170, right: 10}}
                 onPress={() => {
                 setAccounts((accounts.length > 0) 
                     ? [...accounts, {
@@ -141,6 +182,14 @@ export default function Test ({navigation}) {
                     }]
                     : []
                 )}}   
+            />
+            
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
             />
         </View>
         )

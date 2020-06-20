@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { ScrollView ,View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Formik } from 'formik';
 import FlatButton from '../shared/buttons';
 import { getNumeric } from '../utils/numberUtil';
@@ -171,6 +171,62 @@ export default function OtherAssets ({navigation}) {
         )
     }
 
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Small Business",
+      "Delete all inputs in small business?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+            {setGoldValue('0'); setGoldWeight('0');
+            setSilverValue('0');setSilverWeight('0');
+            setSurrender('0');
+            setOthersAdd('0');setOthersMinus('0'); 
+            setAppStore({ 
+                ...appStore, 
+                gold: {
+                    weight: '',
+                    value: ''
+                },
+                silver: {
+                    weight: '',
+                    value: ''
+                },
+                insurance: {
+                    surrender: '',
+                },
+                others: {
+                    add: '',
+                    minus: ''
+                },
+                results: {
+                    ...appStore.results,
+                    gold: {
+                        net: 0,
+                        zakat: 0
+                    },
+                    silver: {
+                        net: 0,
+                        zakat: 0
+                    },
+                    insurance: {
+                        net: 0,
+                        zakat: 0
+                    },
+                    others: {
+                        net: 0,
+                        zakat: 0
+                    }
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
+
     return(
     <View style = {globalStyles.container}>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
@@ -225,6 +281,13 @@ export default function OtherAssets ({navigation}) {
                     }
                     });
                     navigation.navigate('Home')}} 
+            />
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
             />
     </View>
     )}

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { Colors } from 'react-native-paper';
 
 export default function FlatButton({ text, onPress }) {
   return (
@@ -14,20 +15,14 @@ export default function FlatButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 20,
-    borderRadius: 8,
-    paddingVertical: 17,
-    paddingHorizontal: 6,
-    backgroundColor: '#7FFFD4',
-    marginLeft: 20,
-    marginRight: 20,
+    paddingVertical: 4,
+    backgroundColor: Colors.red400,
     opacity: 70,
-    borderWidth: 1,
   },
   buttonText: {
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
   }
 });

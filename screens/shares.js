@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
@@ -24,6 +24,47 @@ export default function Shares ({navigation}) {
         currentAccounts[key -1].noUnits = noUnits;
         return currentAccounts;
     }
+
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Shares",
+      "Delete all accounts in shares?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+            {setAccounts([
+            {
+                key: 1,
+                perUnit: '',
+                noUnit: '',
+                },
+            ]
+            ); setAppStore({ 
+                ...appStore, 
+                shares: { 
+                    accounts: [
+                        {
+                            key: 1,
+                            perUnit: '',
+                            noUnit: '',
+                            },
+                        ]
+                 },
+                results: {
+                    ...appStore.results,
+                    shares: {
+                        net: 0, 
+                        zakat: 0
+                    }
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
 
     const sharesForm = (key, index) => {
         return(
@@ -110,7 +151,7 @@ export default function Shares ({navigation}) {
                 icon="check"
                 color={Colors.blueA200}
                 size={40}
-                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
                     setAppStore({ 
                     ...appStore, 
@@ -130,7 +171,7 @@ export default function Shares ({navigation}) {
                 icon="plus"
                 color={Colors.blueA200}
                 size={40}
-                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 170, right: 10}}
                 onPress={() => {
                 setAccounts((accounts.length > 0) 
                     ? [...accounts, {
@@ -140,6 +181,13 @@ export default function Shares ({navigation}) {
                     }]
                     : []
                 )}}
+            />
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
             />
         </View>
         )
