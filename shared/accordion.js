@@ -2,6 +2,11 @@ import React, {useState} from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Button } from 'react-native';
 import { Colors } from 'react-native-paper';
 import FlatButton from '../shared/buttons';
+import {
+  TextField,
+  FilledTextField,
+  OutlinedTextField,
+} from 'react-native-material-textfield';
 
 export default function Accordion(props) {
   const [active, setActiveState] = useState(false);
@@ -22,6 +27,11 @@ export default function Accordion(props) {
   return (
     <TouchableOpacity onPress={toggleAccordion}>
       <View style={styles.button}>
+        {/* {props.title === undefined? <FilledTextField
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                    /> :<Text style={styles.buttonText}>{props.title}</Text>} */}
         <Text style={styles.buttonText}>{props.title}</Text>
         {props.value === undefined ? undefined : <Text style={styles.accordionTotal}>${props.value}</Text> }
         {props.remove === true ? (<FlatButton text='Remove' onPress={props.doRemove}/>) : undefined }

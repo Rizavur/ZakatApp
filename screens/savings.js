@@ -1,19 +1,31 @@
-import React, { useState, Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import React, { useState, Component, useEffect } from 'react';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert, FlatList } from 'react-native';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import FlatButton from '../shared/buttons';
-import { IconButton, Colors } from 'react-native-paper';
+import { IconButton, Colors, List } from 'react-native-paper';
 import { getNumeric } from '../utils/numberUtil';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
+import Modal from 'react-native-modal';
+import {setVisibleCallback} from '../App';
 
 export default function Test ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
+    const [ visible, setVisible ] = useState(false);
+    
+    setVisibleCallback['Savings'] = setVisible;
 
-    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        setVisibleCallback(setVisible);
+      }, []);
 
     const getAccountsWithNewInterest = (key, interest) => {
         const currentAccounts = accounts;
@@ -37,30 +49,31 @@ export default function Test ({navigation}) {
                 }}
             >
             {props => (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>Lowest amount in year: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('lowestAmt')}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Lowest Amount'
                         name = {`${key}_lowestAmt`}
                         value = {accounts[index].lowestAmt}
-                        style={globalStyles.input}
-                        placeholder='Enter lowest amount'
-                        placeholderTextColor={Colors.grey800}
-                        keyboardType= 'numeric'
+                        onChangeText={props.handleChange('lowestAmt')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
-                    <Text style={globalStyles.inputCaptionAccordion}>Interest earned: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('interest')}
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Interest'
                         name = {`${key}_interest`}
                         value = {accounts[index].interest}
+                        onChangeText={props.handleChange('interest')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
-                        style={globalStyles.input}
-                        placeholder='Enter interest earned'
-                        placeholderTextColor={Colors.grey800}
-                        keyboardType= 'numeric'
+                        
                     />
                 </View>
                 )}
@@ -132,9 +145,46 @@ export default function Test ({navigation}) {
       ],
       { cancelable: false }
     );
-
+    console.log(visible);
     return(
         <View style = {globalStyles.container}>
+            <View>  
+                <Modal
+                isVisible={visible}
+                animationType="slide"
+                backgroundColor={Colors.grey900}
+                style={{
+                    marginVertical: 50,
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20
+                }}
+                >
+                <View style={{ flex: 1, padding: 20}}>
+                    <Text style={globalStyles.modalHeader}>Zakat On Savings</Text>
+                    <ScrollView style={{marginTop: 10, paddingRight: 13, paddingLeft: 13}}>
+                        <Text style={{...globalStyles.modalInfoHeader}}>Step 1</Text>
+                                <Text style={{...globalStyles.modalInfoContent}}>Find out the Nisab value (minimum value required for Zakat).</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Step 2</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Open your bank account book and only look at your savings balance throughout the year. It does not matter if you deposit or withdraw money throughout the year, because Zakat on Savings is based on the balance and not on the deposits or withdrawals made.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Step 3</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Look at your balance throughout the past 1 Islamic year (1 Haul) which is about 355 days. If in the past year none of your balances have dropped below the Nisab value, you are eligible for Zakat.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Step 4</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Identify the lowest balance in the year. This could occur in any period throughout the year.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Step 5</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Zakat on Savings: (LowestBalance($) - InterestEarned($)) X 2.5%</Text>
+                    </ScrollView>
+                    <IconButton
+                        icon="close"
+                        color='red'
+                        size={25}
+                        style = {{position: 'absolute', top: 7, right: 7}}
+                        onPress={() => setVisible(false)}
+                    />
+                </View>
+                </Modal>
+            </View>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView >
                 {accounts.map((account,index) => 
@@ -142,7 +192,7 @@ export default function Test ({navigation}) {
                 remove={true} 
                 doRemove={() => doRemove(index)} 
                 title={accordionTitle(account)} 
-                height={200} 
+                height={150} 
                 form= {savingsForm(account.key, index)} 
                 />
                 )}

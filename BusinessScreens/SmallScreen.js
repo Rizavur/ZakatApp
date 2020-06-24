@@ -8,7 +8,11 @@ import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 import _ from 'lodash';
-import NumberFormat from 'react-number-format';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
 
 export default function SmallScreen ({ route, navigation }) {
     const { setAppStore, appStore } = route.params.state.params;
@@ -20,27 +24,27 @@ export default function SmallScreen ({ route, navigation }) {
         // AMOUNT ACA
         addCurrentAssets: [
         {
-            text: 'Cash: ',
+            text: 'Cash',
             placeholder: 'Cash in Hand',
             tag: 'cash',
         },
         {
-            text: 'Bank Balance: ',
+            text: 'Bank Balance',
             placeholder: 'Bank Balance',
             tag: 'bank',
         },
         {
-            text: 'Closing Stock: ',
+            text: 'Closing Stock',
             placeholder: 'Closing Stock',
             tag: 'stock',
         },
         {
-            text: 'Trade Debtors: ',
+            text: 'Trade Debtors',
             placeholder: 'Trade Debtors',
             tag: 'debtors',
         },
         {
-            text: 'Others: ',
+            text: 'Others',
             placeholder: 'Others',
             tag:'amountACAothers',
         }],
@@ -48,17 +52,17 @@ export default function SmallScreen ({ route, navigation }) {
         // AMOUNT LCL
         lessCurrentLiabilities: [
         {
-            text: 'Trade Creditors: ',
+            text: 'Trade Creditors',
             placeholder: 'Trade Creditors',
             tag: 'creditors',
         },
         {
-            text: 'Accrued Operating Expenses: ',
+            text: 'Accrued Operating Expenses',
             placeholder: 'Accrued Operating Expenses',
             tag: 'operatingExpenses',
         },
         {
-            text: 'Others: ',
+            text: 'Others',
             placeholder: 'Others',
             tag: 'amountLCLothers',
         }]
@@ -104,27 +108,26 @@ export default function SmallScreen ({ route, navigation }) {
     const AddCurrentAssets = (props) => {
         return fields.addCurrentAssets.map((element, key) => {
             return (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.amountACA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
-                        setBusinessValue({
-                            ...businessValue,
-                            amountACA: {
-                                ...businessValue.amountACA,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.amountACA[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
+                            setBusinessValue({
+                                ...businessValue,
+                                amountACA: {
+                                    ...businessValue.amountACA,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -134,27 +137,26 @@ export default function SmallScreen ({ route, navigation }) {
     const LessCurrentLiabilities = (props) => {
         return fields.lessCurrentLiabilities.map((element, key) => {
             return (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.amountLCL[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.amountLCL[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
                         setBusinessValue({
                             ...businessValue,
                             amountLCL: {
                                 ...businessValue.amountLCL,
                                 [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -164,19 +166,18 @@ export default function SmallScreen ({ route, navigation }) {
     const AdjustmentAssets = (props) => {
         return Adjustments.addCurrentAssets.map((element, key) => {
             return(
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.adjustmentsACA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        onChangeText={props.handleChange(element.tag)}
+                        value = {businessValue.adjustmentsACA[element.tag]}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                        onChange={(value) => {
                         setBusinessValue({
                             ...businessValue,
                             adjustmentsACA: {
@@ -196,19 +197,18 @@ export default function SmallScreen ({ route, navigation }) {
     const AdjustmentsLess = (props) => {
         return Adjustments.LessCurrentAssets.map((element, key) => {
             return(
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.adjustmentsLCA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        onChangeText={props.handleChange(element.tag)}
+                        value = {businessValue.adjustmentsLCA[element.tag]}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                        onChange={(value) => {
                         setBusinessValue({
                             ...businessValue,
                             adjustmentsLCA: {
@@ -336,6 +336,7 @@ export default function SmallScreen ({ route, navigation }) {
             >
             {props => (
                 <View style = {globalStyles.container}>
+                    <View style={{backgroundColor: '#454b54', borderRadius: 20, marginHorizontal: 20, marginTop: 15}}>
                         <Text style={globalStyles.savingsHead}>Muslim Ownership {ownership}%</Text>
                         <Slider
                         style={{ width: 300, alignSelf: 'center'}}
@@ -345,28 +346,30 @@ export default function SmallScreen ({ route, navigation }) {
                         value= {ownership}
                         onValueChange={_.debounce(((ownership) => setOwnership(ownership)), 33)}
                         />
+                    </View>
+
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= 'Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
-                        height = {470} 
+                        height = {400} 
                         form={AddCurrentAssets(props)} />
                         <Accordion 
                         title ='Less Current Liabilities' 
                         value={getTotal(businessValue.amountLCL)} 
-                        height={290} 
+                        height={245} 
                         form={LessCurrentLiabilities(props)}/>
                 
                         <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
                         title='Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
-                        height={290} 
+                        height={245} 
                         form={AdjustmentAssets(props)}/>
                         <Accordion 
                         title='Less Current Assets' 
                         value={getTotal(businessValue.adjustmentsLCA)} 
-                        height={200} 
+                        height={170} 
                         form={AdjustmentsLess(props)}/>
                 </View>
             )}

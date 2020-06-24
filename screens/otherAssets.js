@@ -6,9 +6,19 @@ import { getNumeric } from '../utils/numberUtil';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
 import { IconButton, Colors } from 'react-native-paper';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
+import Modal from 'react-native-modal';
+import {setVisibleCallback} from '../App';
+
 
 export default function OtherAssets ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
+    const [ visible, setVisible ] = useState(false);
+    setVisibleCallback['OtherAssets'] = setVisible;
 
     const [goldWeight, setGoldWeight] = useState(appStore.gold.weight);
     const [goldValue, setGoldValue] = useState(appStore.gold.value);
@@ -33,6 +43,8 @@ export default function OtherAssets ({navigation}) {
     const othersNet = (getNumeric(othersAdd) - getNumeric(othersMinus)).toFixed(2);
     const othersZakat = (getNumeric(othersNet)/100 *2.5).toFixed(2);
 
+    const otherAssetsNet = (getNumeric(goldNet)+ getNumeric(silverNet) + getNumeric(insuranceNet) + getNumeric(othersNet));
+    const otherAssetsZakat = ((otherAssetsNet/100) *2.5).toFixed(2);
 
     const goldForm = () => {
         return(
@@ -41,29 +53,28 @@ export default function OtherAssets ({navigation}) {
                     initialValues= {{goldWeight, goldValue}}
                     >
                     {props => (
-                        <View>
-                                <Text style={globalStyles.inputCaptionAccordion}>Market Value (per gram):</Text>
-                                <TextInput
-                                onChangeText={props.handleChange('value')}
+                        <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                            <FilledTextField
+                                prefix = '$'
+                                baseColor = 'black'
+                                tintColor = 'blue'
+                                keyboardType= 'numeric'
+                                label = 'Market Value (per g)'
                                 value = {goldValue}
-                                clearTextOnFocus
-                                style={globalStyles.input}
-                                placeholder='Market value per gram'
-                                placeholderTextColor={Colors.grey800}
-                                keyboardType= 'numeric'
+                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                                 onChange={(value) => setGoldValue(value.nativeEvent.text)}
-                                />
-                                <Text style={globalStyles.inputCaptionAccordion}>Weight (in grams) :</Text>
-                                <TextInput
-                                onChangeText={props.handleChange('weight')}
-                                value = {goldWeight}
-                                clearTextOnFocus
-                                style={globalStyles.input}
-                                placeholder='Weight in grams'
-                                placeholderTextColor={Colors.grey800}
+                            />
+                            <FilledTextField
+                                prefix = '$'
+                                baseColor = 'black'
+                                tintColor = 'blue'
                                 keyboardType= 'numeric'
+                                label = 'Weight (g)'
+                                value = {goldWeight}
+                                onChangeText={props.handleChange('weight')}
+                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                                 onChange={(value) => setGoldWeight(value.nativeEvent.text)}
-                                />
+                            />
                         </View>
                         )}
                     </Formik>
@@ -115,18 +126,18 @@ export default function OtherAssets ({navigation}) {
                 initialValues = {{surrender: surrender}}
                 >
                 {props => (
-                    <View>
-                            <Text style={globalStyles.inputCaption}>Surrender value:</Text>
-                            <TextInput
-                            clearTextOnFocus
-                            onChangeText={props.handleChange('surrender')}
-                            value = {surrender}
-                            onChange={(value) => setSurrender(value.nativeEvent.text)}
-                            style={globalStyles.input}
-                            placeholder='Surrender value'
-                            placeholderTextColor={Colors.grey800}
+                    <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                        <FilledTextField
+                            prefix = '$'
+                            baseColor = 'black'
+                            tintColor = 'blue'
                             keyboardType= 'numeric'
-                            />
+                            label = 'Surrender Value'
+                            value = {surrender}
+                            onChangeText={props.handleChange('surrender')}
+                            inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                            onChange={(value) => setSurrender(value.nativeEvent.text)}
+                        />
                     </View>
                     )}
                 </Formik>
@@ -141,29 +152,29 @@ export default function OtherAssets ({navigation}) {
                     initialValues= {{othersAdd, othersMinus}}
                     >
                     {props => (
-                        <View>
-                                <Text style={globalStyles.inputCaptionAccordion}>Add:</Text>
-                                <TextInput
-                                onChangeText={props.handleChange('value')}
+                        <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                            <FilledTextField
+                                prefix = '$'
+                                baseColor = 'black'
+                                tintColor = 'blue'
+                                keyboardType= 'numeric'
+                                label = 'Add'
                                 value = {othersAdd}
-                                clearTextOnFocus
-                                style={globalStyles.input}
-                                placeholder='Other Assets'
-                                placeholderTextColor={Colors.grey800}
-                                keyboardType= 'numeric'
+                                onChangeText={props.handleChange('surrender')}
+                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                                 onChange={(value) => setOthersAdd(value.nativeEvent.text)}
-                                />
-                                <Text style={globalStyles.inputCaptionAccordion}>Minus:</Text>
-                                <TextInput
-                                onChangeText={props.handleChange('weight')}
-                                value = {othersMinus}
-                                clearTextOnFocus
-                                style={globalStyles.input}
-                                placeholder='Other Liabilities'
-                                placeholderTextColor={Colors.grey800}
+                            />
+                            <FilledTextField
+                                prefix = '$'
+                                baseColor = 'black'
+                                tintColor = 'blue'
                                 keyboardType= 'numeric'
+                                label = 'Minus'
+                                value = {othersMinus}
+                                onChangeText={props.handleChange('surrender')}
+                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                                 onChange={(value) => setOthersMinus(value.nativeEvent.text)}
-                                />
+                            />
                         </View>
                         )}
                     </Formik>
@@ -229,12 +240,45 @@ export default function OtherAssets ({navigation}) {
 
     return(
     <View style = {globalStyles.container}>
+        <View>  
+                <Modal
+                isVisible={visible}
+                animationType="slide"
+                backgroundColor={Colors.grey900}
+                style={{
+                    marginVertical: 50,
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20
+                }}
+                >
+                <View style={{ flex: 1, padding: 20}}>
+                    <Text style={globalStyles.modalHeader}>Zakat On Other Assets</Text>
+                    <ScrollView style={{marginTop: 10, paddingRight: 13, paddingLeft: 13}}>
+                        <Text style={{...globalStyles.modalInfoHeader}}>Gold Bars and Gold Jewellery (Not Intended for Usage)</Text>
+                                <Text style={{...globalStyles.modalInfoContent}}>Gold in the form of gold bars kept / invested in the bank and gold jewellery that is kept without the intention of usage is obligated for Zakat when the weight of the gold has reached the haul and nisab of 86 grams. Zakat is then based on 2.5% of the total weight of gold from the gold bars / jewellery.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Gold Jewellery (Intended for Usage)</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Gold jewellery intended for usage is only obligated for Zakat if the weight of a piece of the gold jewellery has reached the haul and uruf  of 860 grams. Zakat is then based on 2.5% of the total weight of gold from the piece of gold jewellery.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Insurance</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>Determine the start date of the insurance plan and the date when Nisab is reached.Find out the surrender value from your insurance statement or insurance agent when Nisab is reached.Your Zakat Insurance is surrender value($) x 2.5%</Text>
+                    </ScrollView>
+                    <IconButton
+                        icon="close"
+                        color='red'
+                        size={25}
+                        style = {{position: 'absolute', top: 7, right: 7}}
+                        onPress={() => setVisible(false)}
+                    />
+                </View>
+                </Modal>
+            </View>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
             <ScrollView>
-                <Accordion title={'Gold'} height={200} value={goldNet} form={goldForm()}/>
-                <Accordion title={'Silver'} height={200} value={silverNet} form={silverForm()}/>
-                <Accordion title={'Insurance'} height={100} value={insuranceNet} form={insuranceForm()}/>
-                <Accordion title={'Others'} height={200} value={othersNet} form={othersForm()}/>
+                <Accordion title={'Gold'} height={150} value={goldNet} form={goldForm()}/>
+                {/* <Accordion title={'Silver'} height={200} value={silverNet} form={silverForm()}/> */}
+                <Accordion title={'Insurance'} height={90} value={insuranceNet} form={insuranceForm()}/>
+                <Accordion title={'Others'} height={150} value={othersNet} form={othersForm()}/>
             </ScrollView>
         </TouchableWithoutFeedback>
         <IconButton
@@ -277,6 +321,10 @@ export default function OtherAssets ({navigation}) {
                         others: {
                             net: othersNet,
                             zakat: othersZakat,
+                        },
+                        otherAssets: {
+                            net: otherAssetsNet,
+                            zakat: otherAssetsZakat,
                         }
                     }
                     });

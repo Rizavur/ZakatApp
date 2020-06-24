@@ -13,6 +13,8 @@ const getFonts = () => Font.loadAsync({
   'oswaldBold': require('./assets/fonts/Oswald-Regular.ttf'),
 });
 
+export let setVisibleCallback = () => {};
+
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 

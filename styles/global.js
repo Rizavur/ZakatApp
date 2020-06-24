@@ -119,6 +119,22 @@ export const globalStyles = StyleSheet.create({
         marginTop: 6,
         textAlign: 'center',
       },
+      modalHeader: {
+          color: '#24c0e3',
+          fontFamily: 'oswaldBold',
+          fontSize: 30,
+          alignSelf: 'center',
+      },
+      modalInfoHeader: {
+        color: '#1698b5',
+        fontSize: 15,
+        paddingTop: 10,
+      },
+      modalInfoContent: {
+        color: 'white',
+        textAlign: 'justify',
+        fontSize: 14
+      },
 })
 
 

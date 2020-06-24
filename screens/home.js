@@ -9,6 +9,7 @@ import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 
 export default function Home ({navigation}) {
+
     const [appStore, setAppStore] = useState({
         savings: {
             accounts: [
@@ -151,6 +152,10 @@ export default function Home ({navigation}) {
             others: {
                 net: 0,
                 zakat: 0
+            },
+            otherAssets: {
+                net: 0,
+                zakat: 0
             }
         },
     });
@@ -166,9 +171,13 @@ export default function Home ({navigation}) {
                 parseFloat(results.insurance.zakat) +
                 parseFloat(results.others.zakat)).toFixed(2);    
 
+    const [visibleCallback, setVisibleCallback] = useState(() => {});
+
     const pressHandler = ({ text }) => {
-        navigation.navigate(text, { appStore, setAppStore });
+        navigation.navigate(text, { appStore, setAppStore, visibleCallback, setVisibleCallback });
     }
+
+
 
     return(
         <PaperProvider theme = {paperStyles}>
@@ -214,12 +223,8 @@ export default function Home ({navigation}) {
             <Card style={globalStyles.button} onPress={() => pressHandler({text: 'OtherAssets'})}>
                 <Card.Title title="Other Assets"/> 
                 <Card.Content>
-                    <Paragraph>Total: ${(getNumeric(results.gold.net) +
-                                        getNumeric(results.silver.net) +
-                                        getNumeric(results.insurance.net) +
-                                        getNumeric(results.others.net))}
-                    </Paragraph>
-                    <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.gold.zakat}</Paragraph>
+                    <Paragraph>Total: ${appStore.results.otherAssets.net}</Paragraph>
+                    <Paragraph style={globalStyles.homeRightZakat}>Zakat: ${appStore.results.otherAssets.zakat}</Paragraph>
                 </Card.Content>
                 <Button icon={'chevron-right'} style={{position:'absolute', right: -10, marginTop: 30}}></Button>
             </Card>

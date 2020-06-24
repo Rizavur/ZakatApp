@@ -3,15 +3,26 @@ import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, 
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
-import { IconButton, Colors } from 'react-native-paper';
+import { IconButton, Colors, List } from 'react-native-paper';
 import { getNumeric } from '../utils/numberUtil';
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
+import Modal from 'react-native-modal';
+import {setVisibleCallback} from '../App';
+
 
 export default function Shares ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.shares.accounts);
+    const [ visible, setVisible ] = useState(false);
+
+    setVisibleCallback['Shares'] = setVisible;
 
     const getAccountsWithNewPerUnit = (key, perUnit) => {
         const currentAccounts = accounts;
@@ -76,30 +87,30 @@ export default function Shares ({navigation}) {
                 }}
             >
             {props => (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>Market Value Per Unit: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('perUnit')}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Market Value Per Unit'
                         name = {`${key}_perUnit`}
                         value = {accounts[index].perUnit}
-                        style={globalStyles.input}
-                        placeholder='Enter market value per unit'
-                        placeholderTextColor={Colors.grey800}
-                        keyboardType= 'numeric'
+                        onChangeText={props.handleChange('perUnit')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewPerUnit(key, value.nativeEvent.text))}
                     />
-                    <Text style={globalStyles.inputCaptionAccordion}>No. of units: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('noUnits')}
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Number of Units'
                         name = {`${key}_noUnits`}
                         value = {accounts[index].noUnits}
+                        onChangeText={props.handleChange('noUnits')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewNoAccounts(key, value.nativeEvent.text))}
-                        style={globalStyles.input}
-                        placeholder='Enter no. of units'
-                        placeholderTextColor={Colors.grey800}
-                        keyboardType= 'numeric'
                     />
                 </View>
                 )}
@@ -134,6 +145,37 @@ export default function Shares ({navigation}) {
 
     return(
         <View style = {globalStyles.container}>
+        <View>  
+                <Modal
+                isVisible={visible}
+                animationType="slide"
+                backgroundColor={Colors.grey900}
+                style={{
+                    marginVertical: 50,
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20
+                }}
+                >
+                <View style={{ flex: 1, padding: 20}}>
+                    <Text style={globalStyles.modalHeader}>Zakat On Shares</Text>
+                    <ScrollView style={{marginTop: 10, paddingRight: 13, paddingLeft: 13}}>
+                        <Text style={{...globalStyles.modalInfoHeader}}>One Type of Shares</Text>
+                                <Text style={{...globalStyles.modalInfoContent}}>If the shareholder only owns one type of shares, Zakat on Shares is calculated by taking 2.5% of the market value of the shares when Haul and Nisab are reached.</Text>
+                        <Text style={{...globalStyles.modalInfoHeader, marginTop: 10}}>Multiple Types of Shares</Text>
+                            <Text style={{...globalStyles.modalInfoContent}}>If the shareholder owns more than one type of shares, the calculation and payment of the Zakat on Shares is done at the end of the Financial Year (ie. 31 Dec) by taking 2.5% of the market values of all the shares at the end of the year.</Text>
+                    </ScrollView>
+                    <IconButton
+                        icon="close"
+                        color='red'
+                        size={25}
+                        style = {{position: 'absolute', top: 7, right: 7}}
+                        onPress={() => setVisible(false)}
+                    />
+                </View>
+                </Modal>
+            </View>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView>
             {accounts.map((account,index) => 
@@ -141,7 +183,7 @@ export default function Shares ({navigation}) {
             remove={true} 
             doRemove={() => doRemove(index)} 
             title={accordionTitle(account)} 
-            height={200} 
+            height={150} 
             form= {sharesForm(account.key, index)} 
             />
             )}

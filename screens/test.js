@@ -1,19 +1,23 @@
 import React, { useState, Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import FlatButton from '../shared/buttons';
-
+import { IconButton, Colors } from 'react-native-paper';
 import { getNumeric } from '../utils/numberUtil';
-
 import { globalStyles } from '../styles/global';
 import Accordion from '../shared/accordion';
-import { List } from 'react-native-paper';
-
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
 export default function Test ({navigation}) {
 
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.savings.accounts);
+
+    const [visible, setVisible] = useState(false);
 
     const getAccountsWithNewInterest = (key, interest) => {
         const currentAccounts = accounts;
@@ -37,28 +41,31 @@ export default function Test ({navigation}) {
                 }}
             >
             {props => (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>Lowest amount in year: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('lowestAmt')}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Lowest Amount'
                         name = {`${key}_lowestAmt`}
                         value = {accounts[index].lowestAmt}
-                        style={globalStyles.input}
-                        placeholder='Enter lowest amount'
-                        keyboardType= 'numeric'
+                        onChangeText={props.handleChange('lowestAmt')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
-                    <Text style={globalStyles.inputCaptionAccordion}>Interest earned: </Text>
-                    <TextInput
-                        clearTextOnFocus
-                        onChangeText={props.handleChange('interest')}
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = 'Interest'
                         name = {`${key}_interest`}
                         value = {accounts[index].interest}
+                        onChangeText={props.handleChange('interest')}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
-                        style={globalStyles.input}
-                        placeholder='Enter interest earned'
-                        keyboardType= 'numeric'
+                        
                     />
                 </View>
                 )}
@@ -91,47 +98,104 @@ export default function Test ({navigation}) {
         }
     }
 
-    return(
-        <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
-        <ScrollView style = {globalStyles.container}>
-        <FlatButton 
-        text='Add' 
-        onPress={() => {
-            setAccounts((accounts.length > 0) 
-                ? [...accounts, {
-                    key: accordionKey(), 
-                    interest: '', 
-                    lowestAmt: ''
-                }]
-                : []
-            )}
-        }
-        />
-            {accounts.map((account,index) => 
-            <Accordion 
-            remove={true} 
-            doRemove={() => doRemove(index)} 
-            title={accordionTitle(account)} 
-            height={200} 
-            form= {savingsForm(account.key, index)} 
-            />
-            )}
-            <FlatButton onPress={() => {
-                setAppStore({ 
-                    ...appStore, 
-                    savings: { accounts },
-                    results: {
-                        ...appStore.results,
-                        savings: {
-                            net: getTotalSavings(accounts), 
-                            zakat: (getTotalSavings(accounts)/100 * 2.5).toFixed(2)
-                        }
+    const confirmation = () =>
+    Alert.alert(
+      "Reset Savings",
+      "Delete all accounts in savings?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress:  () =>
+        {setAccounts([
+            {
+                key: 1,
+                lowestAmt: '',
+                interest: ''
+            },
+            ]
+            ); setAppStore({ 
+                ...appStore, 
+                savings: { 
+                    accounts: [
+                        {   key: 1,
+                            lowestAmt: '',
+                            interest: ''
+                            },
+                        ]
+                 },
+                results: {
+                    ...appStore.results,
+                    savings: {
+                        net: 0, 
+                        zakat: 0
                     }
-                });
-                navigation.navigate('Home')} } 
-                text='Calculate' 
-            />
-        </ScrollView>
+                }
+            })}}
+      ],
+      { cancelable: false }
+    );
+
+    return(
+        <View style = {globalStyles.container}>
+        <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+        <ScrollView >
+                {accounts.map((account,index) => 
+                <Accordion 
+                remove={true} 
+                doRemove={() => doRemove(index)} 
+                title={accordionTitle(account)} 
+                height={150} 
+                form= {savingsForm(account.key, index)} 
+                />
+                )}
+            </ScrollView>
         </TouchableWithoutFeedback>
+            <IconButton
+                icon="check"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
+                onPress={() => {
+                    setAppStore({ 
+                        ...appStore, 
+                        savings: { accounts },
+                        results: {
+                            ...appStore.results,
+                            savings: {
+                                net: getTotalSavings(accounts), 
+                                zakat: (getTotalSavings(accounts)/100 * 2.5).toFixed(2)
+                            }
+                        }
+                    });
+                    navigation.navigate('Home')} } 
+            />
+
+            <IconButton
+                icon="plus"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 170, right: 10}}
+                onPress={() => {
+                setAccounts((accounts.length > 0) 
+                    ? [...accounts, {
+                        key: accordionKey(), 
+                        interest: '', 
+                        lowestAmt: ''
+                    }]
+                    : []
+                )}}   
+            />
+            
+            <IconButton
+                icon="delete-outline"
+                color={Colors.blueA200}
+                size={40}
+                style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
+                onPress={confirmation}
+            />
+        </View>
         )
     }

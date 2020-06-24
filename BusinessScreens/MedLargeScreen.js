@@ -7,6 +7,11 @@ import { IconButton, Colors } from 'react-native-paper';
 import { globalStyles } from '../styles/global';
 import _ from 'lodash';
 import Accordion from '../shared/accordion';
+import {
+    TextField,
+    FilledTextField,
+    OutlinedTextField,
+  } from 'react-native-material-textfield';
 
 export default function MedLargeScreen ({ route }) {
     const { setAppStore, appStore } = route.params.state.params;
@@ -18,57 +23,57 @@ export default function MedLargeScreen ({ route }) {
         // AMOUNT ACA
         addCurrentAssets: [
         {
-            text: 'Bank Balance: ',
+            text: 'Bank Balance',
             placeholder: 'Bank Balance',
             tag: 'bankBalance',
         },
         {
-            text: 'Cash: ',
+            text: 'Cash',
             placeholder: 'Cash in hand',
             tag: 'cashInHand',
         },
         {
-            text: 'Fixed Deposit: ',
+            text: 'Fixed Deposit',
             placeholder: 'Fixed Deposit',
             tag: 'fixedDeposit',
         },
         {
-            text: 'Prepaid Expenses: ',
+            text: 'Prepaid Expenses',
             placeholder: 'Prepaid Expenses',
             tag: 'prepaidExpenses',
         },
         {
-            text: 'Closing Stocks: ',
+            text: 'Closing Stocks',
             placeholder: 'Closing Stocks',
             tag: 'closingStock',
         },
         {
-            text: 'Trade Debtors: ',
+            text: 'Trade Debtors',
             placeholder: 'Trade Debtors',
             tag: 'tradeDebtors',
         },
         {
-            text: 'Loan Receivable: ',
+            text: 'Loan Receivable',
             placeholder: 'Loan Receivable',
             tag: 'loanReceivable',
         },
         {
-            text: 'Staff Welfare Fund: ',
+            text: 'Staff Welfare Fund',
             placeholder: 'Staff Welfare Fund',
             tag: 'staffWelfareFund',
         },
         {
-            text: 'Staff Loan: ',
+            text: 'Staff Loan',
             placeholder: 'Staff Loan',
             tag: 'staffLoan',
         },
         {
-            text: 'Other Deposits: ',
+            text: 'Other Deposits',
             placeholder: 'Other Deposits',
             tag: 'otherDeposits',
         },
         {
-            text: 'Others: ',
+            text: 'Others',
             placeholder: 'Others',
             tag:'amountACAothers',
         }],
@@ -76,37 +81,37 @@ export default function MedLargeScreen ({ route }) {
         // AMOUNT LCL
         lessCurrentLiabilities: [
         {
-            text: 'Trade Debtors: ',
+            text: 'Trade Debtors',
             placeholder: 'Trade Debtors',
             tag: 'tradeDebtors',
         },
         {
-            text: 'Financial Loans: ',
+            text: 'Financial Loans',
             placeholder: 'Financial Loans',
             tag: 'financialLoans',
         },
         {
-            text: 'Accrued Operating Expenses: ',
+            text: 'Accrued Operating Expenses',
             placeholder: 'Accrued Operating Expenses',
             tag: 'accruedOperatingExpenses',
         },
         {
-            text: 'Current Provision of Income Tax: ',
+            text: 'Current Provision of Income Tax',
             placeholder: 'Current Provision of Income Tax',
             tag: 'currentProvisionOfIncomeTax',
         },
         {
-            text: 'Overdraft: ',
+            text: 'Overdraft',
             placeholder: 'Overdraft',
             tag: 'overdraft',
         },
         {
-            text: "Director's fees payable: ",
+            text: "Director's fees payable",
             placeholder: "Director's fees payable",
             tag: 'directorsFeesPayable',
         },
         {
-            text: 'Others: ',
+            text: 'Others',
             placeholder: 'Others',
             tag: 'amountLCLothers',
         }]
@@ -117,44 +122,44 @@ export default function MedLargeScreen ({ route }) {
         //ADJUSTMENTS ACA
         addCurrentAssets: [
             {
-                text: 'Donation In The Last Quarter: ',
+                text: 'Donation In The Last Quarter',
                 placeholder: 'Donation in the last quarter',
                 tag: 'donationInTheLastQuarter',
             },
             {
-                text: 'Fixed Asset Purchased In Last Quarter: ',
+                text: 'Fixed Asset Purchased In Last Quarter',
                 placeholder: 'Fixed Asset Purchased In Last Quarter',
                 tag: 'fixedAssetPurchasedInLastQuarter',
             },
             {
-                text: 'Others: ',
+                text: 'Others',
                 placeholder: 'Others',
                 tag: 'adjustmentsACAothers',
         }],
 
         addCurrentLiabilities: [
             {
-                text: 'Overdraft: ',
+                text: 'Overdraft',
                 placeholder: 'Overdraft',
                 tag: 'overdraft',
             },
             {
-                text: "Director's Fee Payable: ",
+                text: "Director's Fee Payable",
                 placeholder: "Director's Fee Payable",
                 tag: 'directorsFeePayable',
             },
             {
-                text: 'Financial Loans: ',
+                text: 'Financial Loans',
                 placeholder: 'Financial Loans',
                 tag: 'financialLoans',
             },
             {
-                text: 'Inter-Company Payables: ',
+                text: 'Inter-Company Payables',
                 placeholder: 'Inter-Company Payables',
                 tag: 'interCompanyPayables',
             },
             {
-                text: 'Others: ',
+                text: 'Others',
                 placeholder: 'Others',
                 tag: 'adjustmentsACLothers',
             },
@@ -163,57 +168,57 @@ export default function MedLargeScreen ({ route }) {
         //ADJUSTMENTS LCA
         LessCurrentAssets: [
             {
-                text: 'Bank Interest Received: ',
+                text: 'Bank Interest Received',
                 placeholder: 'Bank Interest Received',
                 tag: 'bankInterestReceived',
             },
             {
-                text: 'Late Payment Interest: ',
+                text: 'Late Payment Interest',
                 placeholder: 'Late Payment Interest',
                 tag: 'latePaymentInterest',
             },
             {
-                text: 'Deposit For Utilities and Telephone: ',
+                text: 'Deposit For Utilities and Telephone',
                 placeholder: 'Deposit For Utilities and Telephone',
                 tag: 'depositForUtilitiesAndTelephone',
             },
             {
-                text: 'Bad Debts: ',
+                text: 'Bad Debts',
                 placeholder: 'Bad Debts',
                 tag: 'badDebts',
             },
             {
-                text: 'Obsolete Stocks: ',
+                text: 'Obsolete Stocks',
                 placeholder: 'Obsolete Stocks',
                 tag: 'obsoleteStocks',
             },
             {
-                text: 'Staff Welfare Funds: ',
+                text: 'Staff Welfare Funds',
                 placeholder: 'Staff Welfare Funds',
                 tag: 'staffWelfareFunds',
             },
             {
-                text: 'Staff Loan: ',
+                text: 'Staff Loan',
                 placeholder: 'Staff Loan',
                 tag: 'staffLoan',
             },
             {
-                text: 'Loan Receivable: ',
+                text: 'Loan Receivable',
                 placeholder: 'Loan Receivable',
                 tag: 'loanReceivable',
             },
             {
-                text: 'Other Deposits: ',
+                text: 'Other Deposits',
                 placeholder: 'Other Deposits',
                 tag: 'otherDeposits',
             },
             {
-                text: 'Inter-Company Receivable: ',
+                text: 'Inter-Company Receivable',
                 placeholder: 'Inter-Company Receivable',
                 tag: 'interCompanyReceivable',
             },
             {
-                text: 'Others: ',
+                text: 'Others',
                 placeholder: 'Others',
                 tag: 'adjustmentsLCAothers',
             },
@@ -224,27 +229,26 @@ export default function MedLargeScreen ({ route }) {
     const AddCurrentAssets = (props) => {
         return fields.addCurrentAssets.map((element, key) => {
             return (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.amountACA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.amountACA[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
                         setBusinessValue({
-                            ...businessValue,
-                            amountACA: {
-                                ...businessValue.amountACA,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                                ...businessValue,
+                                amountACA: {
+                                    ...businessValue.amountACA,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -254,27 +258,26 @@ export default function MedLargeScreen ({ route }) {
     const LessCurrentLiabilities = (props) => {
         return fields.lessCurrentLiabilities.map((element, key) => {
             return (
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.amountLCL[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
-                        setBusinessValue({
-                            ...businessValue,
-                            amountLCL: {
-                                ...businessValue.amountLCL,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.amountLCL[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
+                            setBusinessValue({
+                                ...businessValue,
+                                amountLCL: {
+                                    ...businessValue.amountLCL,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -284,27 +287,26 @@ export default function MedLargeScreen ({ route }) {
     const AdjustmentAssets = (props) => {
         return Adjustments.addCurrentAssets.map((element, key) => {
             return(
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.adjustmentsACA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
-                        setBusinessValue({
-                            ...businessValue,
-                            adjustmentsACA: {
-                                ...businessValue.adjustmentsACA,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.adjustmentsACA[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
+                            setBusinessValue({
+                                ...businessValue,
+                                adjustmentsACA: {
+                                    ...businessValue.adjustmentsACA,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -316,27 +318,26 @@ export default function MedLargeScreen ({ route }) {
     const AdjustmentsLiabilities = (props) => {
         return Adjustments.addCurrentLiabilities.map((element, key) => {
             return(
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.adjustmentsACL[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
-                        setBusinessValue({
-                            ...businessValue,
-                            adjustmentsACL: {
-                                ...businessValue.adjustmentsACL,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.adjustmentsACL[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
+                            setBusinessValue({
+                                ...businessValue,
+                                adjustmentsACL: {
+                                    ...businessValue.adjustmentsACL,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -346,27 +347,26 @@ export default function MedLargeScreen ({ route }) {
     const AdjustmentsLess = (props) => {
         return Adjustments.LessCurrentAssets.map((element, key) => {
             return(
-                <View>
-                    <Text style={globalStyles.inputCaptionAccordion}>{element.text}</Text>
-                    <TextInput
-                    value = {businessValue.adjustmentsLCA[element.tag]}
-                    onChangeText={props.handleChange(element.tag)}
-                    name={element.tag}
-                    key = {key}
-                    clearTextOnFocus
-                    style={globalStyles.input}
-                    placeholder={element.placeholder}
-                    placeholderTextColor={Colors.grey800}
-                    keyboardType= 'numeric'
-                    onChange={(value) => {
-                        setBusinessValue({
-                            ...businessValue,
-                            adjustmentsLCA: {
-                                ...businessValue.adjustmentsLCA,
-                                [element.tag] : value.nativeEvent.text
-                            }
-                        })
-                    }}
+                <View style={{paddingTop:15, paddingHorizontal: 10}}>
+                    <FilledTextField
+                        prefix = '$'
+                        baseColor = 'black'
+                        tintColor = 'blue'
+                        keyboardType= 'numeric'
+                        label = {element.text}
+                        name={element.tag}
+                        value = {businessValue.adjustmentsLCA[element.tag]}
+                        onChangeText={props.handleChange(element.tag)}
+                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        onChange={(value) => {
+                            setBusinessValue({
+                                ...businessValue,
+                                adjustmentsLCA: {
+                                    ...businessValue.adjustmentsLCA,
+                                    [element.tag] : value.nativeEvent.text
+                                }
+                            })
+                        }}
                     />
                 </View>
             )
@@ -533,6 +533,7 @@ export default function MedLargeScreen ({ route }) {
             >
             {props => (
                 <View style = {globalStyles.container}>
+                    <View style={{backgroundColor: '#454b54', borderRadius: 20, marginHorizontal: 20, marginTop: 15}}>
                         <Text style={globalStyles.savingsHead}>Muslim Ownership {ownership}%</Text>
                         <Slider
                         style={{ width: 300, alignSelf: 'center'}}
@@ -542,33 +543,34 @@ export default function MedLargeScreen ({ route }) {
                         value= {ownership}
                         onValueChange={_.debounce(((ownership) => setOwnership(ownership)), 33)}
                         />
+                    </View>
                         <Text style={globalStyles.savingsHead}>Amount For The Year</Text>
                         <Accordion 
                         title= 'Add Current Assets' 
                         value = {getTotal(businessValue.amountACA)} 
-                        height = {1020} 
+                        height = {880} 
                         form={AddCurrentAssets(props)} />
                         <Accordion 
                         title ='Less Current Liabilities' 
                         value={getTotal(businessValue.amountLCL)} 
-                        height={650} 
+                        height={560} 
                         form={LessCurrentLiabilities(props)}/>
                 
                         <Text style={globalStyles.savingsHead}>Adjustments</Text>
                         <Accordion 
                         title='Add Current Assets' 
                         value={getTotal(businessValue.adjustmentsACA)} 
-                        height={310} 
+                        height={250} 
                         form={AdjustmentAssets(props)}/>
                         <Accordion 
                         title='Add Current Liabilities' 
                         value={getTotal(businessValue.adjustmentsACL)} 
-                        height={470} 
+                        height={400} 
                         form={AdjustmentsLiabilities(props)}/>
                         <Accordion 
                         title='Less Current Assets' 
                         value={getTotal(businessValue.adjustmentsLCA)} 
-                        height={1030} 
+                        height={880} 
                         form={AdjustmentsLess(props)}/>
                 </View>
             )}
