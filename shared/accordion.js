@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Button } from 'react-native';
-import { Colors } from 'react-native-paper';
+import { IconButton, Colors } from 'react-native-paper';
 import FlatButton from '../shared/buttons';
 import {
   TextField,
@@ -34,7 +34,7 @@ export default function Accordion(props) {
                     /> :<Text style={styles.buttonText}>{props.title}</Text>} */}
         <Text style={styles.buttonText}>{props.title}</Text>
         {props.value === undefined ? undefined : <Text style={styles.accordionTotal}>${props.value}</Text> }
-        {props.remove === true ? (<FlatButton text='Remove' onPress={props.doRemove}/>) : undefined }
+        {props.remove === true ? (<Text style={{position: "absolute", right:10, marginTop: 20, color: 'red'}} onPress={props.doRemove}>Delete</Text>) : undefined }
         {show()}
       </View>
     </TouchableOpacity>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     marginVertical: 15,
-    fontFamily: 'oswaldBold',
+    fontFamily: 'roboto',
     color: 'white',
     fontSize: 20,
     alignSelf: 'center',

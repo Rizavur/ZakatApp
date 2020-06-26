@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard, Alert, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlatButton from '../shared/buttons';
@@ -21,6 +21,7 @@ export default function Shares ({navigation}) {
     const { setAppStore, appStore } = navigation.state.params;
     const [ accounts, setAccounts ] = useState(appStore.shares.accounts);
     const [ visible, setVisible ] = useState(false);
+    const [toggleRemove, setToggleRemove] = useState(false);
 
     setVisibleCallback['Shares'] = setVisible;
 
@@ -177,10 +178,18 @@ export default function Shares ({navigation}) {
                 </Modal>
             </View>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
+
+        
         <ScrollView>
+            <View style={{flex:1, flexDirection: 'row', alignSelf: 'flex-end'}}>
+                <TouchableOpacity onPress ={() => setToggleRemove(!toggleRemove)}>
+                    <Text style={{color: 'white', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center'}}>Edit</Text>
+                </TouchableOpacity>
+            </View>
+
             {accounts.map((account,index) => 
             <Accordion 
-            remove={true} 
+            remove={toggleRemove} 
             doRemove={() => doRemove(index)} 
             title={accordionTitle(account)} 
             height={150} 

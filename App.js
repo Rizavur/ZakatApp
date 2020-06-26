@@ -11,6 +11,7 @@ const getFonts = () => Font.loadAsync({
   'yellowtail': require('./assets/fonts/Yellowtail-Regular.ttf'),
   'oswaldLight': require('./assets/fonts/Oswald-Light.ttf'),
   'oswaldBold': require('./assets/fonts/Oswald-Regular.ttf'),
+  'roboto': require('./assets/fonts/RobotoCondensed-Regular.ttf'),
 });
 
 export let setVisibleCallback = () => {};

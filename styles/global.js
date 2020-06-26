@@ -3,9 +3,9 @@ import { DefaultTheme, Colors } from 'react-native-paper';
 
 export const globalStyles = StyleSheet.create({
     ZakatText: {
-        fontFamily: 'oswaldLight',
+        fontFamily: 'roboto',
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: 5,
         fontSize: 30,
         color: 'white'
     },
