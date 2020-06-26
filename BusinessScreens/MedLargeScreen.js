@@ -239,7 +239,7 @@ export default function MedLargeScreen ({ route }) {
                         name={element.tag}
                         value = {businessValue.amountACA[element.tag]}
                         onChangeText={props.handleChange(element.tag)}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}                        
                         onChange={(value) => {
                         setBusinessValue({
                                 ...businessValue,
@@ -268,7 +268,7 @@ export default function MedLargeScreen ({ route }) {
                         name={element.tag}
                         value = {businessValue.amountLCL[element.tag]}
                         onChangeText={props.handleChange(element.tag)}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}                        
                         onChange={(value) => {
                             setBusinessValue({
                                 ...businessValue,
@@ -297,7 +297,7 @@ export default function MedLargeScreen ({ route }) {
                         name={element.tag}
                         value = {businessValue.adjustmentsACA[element.tag]}
                         onChangeText={props.handleChange(element.tag)}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}                        
                         onChange={(value) => {
                             setBusinessValue({
                                 ...businessValue,
@@ -328,7 +328,7 @@ export default function MedLargeScreen ({ route }) {
                         name={element.tag}
                         value = {businessValue.adjustmentsACL[element.tag]}
                         onChangeText={props.handleChange(element.tag)}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}                        
                         onChange={(value) => {
                             setBusinessValue({
                                 ...businessValue,
@@ -357,7 +357,7 @@ export default function MedLargeScreen ({ route }) {
                         name={element.tag}
                         value = {businessValue.adjustmentsLCA[element.tag]}
                         onChangeText={props.handleChange(element.tag)}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}                        
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}                        
                         onChange={(value) => {
                             setBusinessValue({
                                 ...businessValue,
@@ -533,8 +533,8 @@ export default function MedLargeScreen ({ route }) {
             >
             {props => (
                 <View style = {globalStyles.container}>
-                    <View style={{backgroundColor: '#454b54', borderRadius: 20, marginHorizontal: 20, marginTop: 15}}>
-                        <Text style={globalStyles.savingsHead}>Muslim Ownership {ownership}%</Text>
+                    <View style={{backgroundColor: '#91cfa5', borderRadius: 20, marginHorizontal: 20, marginTop: 15}}>
+                        <Text style={{...globalStyles.savingsHead, color:'black'}}>Muslim Ownership {ownership}%</Text>
                         <Slider
                         style={{ width: 300, alignSelf: 'center'}}
                         maximumValue={100}
@@ -579,7 +579,7 @@ export default function MedLargeScreen ({ route }) {
         </TouchableWithoutFeedback>
         <IconButton
                 icon="check"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
@@ -603,7 +603,7 @@ export default function MedLargeScreen ({ route }) {
             />
             <IconButton
                 icon="delete-outline"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
                 onPress={confirmation}

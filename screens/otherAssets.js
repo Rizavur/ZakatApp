@@ -61,7 +61,7 @@ export default function OtherAssets ({navigation}) {
                                 keyboardType= 'numeric'
                                 label = 'Market Value (per g)'
                                 value = {goldValue}
-                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                                inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                                 onChange={(value) => setGoldValue(value.nativeEvent.text)}
                             />
                             <FilledTextField
@@ -72,7 +72,7 @@ export default function OtherAssets ({navigation}) {
                                 label = 'Weight (g)'
                                 value = {goldWeight}
                                 onChangeText={props.handleChange('weight')}
-                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                                inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                                 onChange={(value) => setGoldWeight(value.nativeEvent.text)}
                             />
                         </View>
@@ -135,7 +135,7 @@ export default function OtherAssets ({navigation}) {
                             label = 'Surrender Value'
                             value = {surrender}
                             onChangeText={props.handleChange('surrender')}
-                            inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                            inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                             onChange={(value) => setSurrender(value.nativeEvent.text)}
                         />
                     </View>
@@ -161,7 +161,7 @@ export default function OtherAssets ({navigation}) {
                                 label = 'Add'
                                 value = {othersAdd}
                                 onChangeText={props.handleChange('surrender')}
-                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                                inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                                 onChange={(value) => setOthersAdd(value.nativeEvent.text)}
                             />
                             <FilledTextField
@@ -172,7 +172,7 @@ export default function OtherAssets ({navigation}) {
                                 label = 'Minus'
                                 value = {othersMinus}
                                 onChangeText={props.handleChange('surrender')}
-                                inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                                inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                                 onChange={(value) => setOthersMinus(value.nativeEvent.text)}
                             />
                         </View>
@@ -283,7 +283,7 @@ export default function OtherAssets ({navigation}) {
         </TouchableWithoutFeedback>
         <IconButton
                 icon="check"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
@@ -332,7 +332,7 @@ export default function OtherAssets ({navigation}) {
             />
             <IconButton
                 icon="delete-outline"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
                 onPress={confirmation}

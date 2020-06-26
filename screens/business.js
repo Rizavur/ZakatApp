@@ -88,10 +88,11 @@ export default function Business ({navigation}) {
                 </Modal>
             </View>
             <Tab.Navigator tabBarOptions={{
-            activeTintColor: '#ffffff',
-            inactiveTintColor: '#7FC0C4',
+            activeTintColor: '#0c0d0c',
+            inactiveTintColor: '#79807b',
+            indicatorStyle: {backgroundColor: 'green'},
             style: {
-                backgroundColor: Colors.blueA700,
+                backgroundColor: '#9edb9e',
             },
             }}>
                 <Tab.Screen name="Small Business" component={SmallScreen} initialParams={ navigation } />

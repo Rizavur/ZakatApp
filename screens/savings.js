@@ -61,7 +61,7 @@ export default function Test ({navigation}) {
                         name = {`${key}_lowestAmt`}
                         value = {accounts[index].lowestAmt}
                         onChangeText={props.handleChange('lowestAmt')}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
                     <FilledTextField
@@ -73,7 +73,7 @@ export default function Test ({navigation}) {
                         name = {`${key}_interest`}
                         value = {accounts[index].interest}
                         onChangeText={props.handleChange('interest')}
-                        inputContainerStyle = {{backgroundColor: '#6db2e3'}}
+                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
                         
                     />
@@ -189,9 +189,19 @@ export default function Test ({navigation}) {
             </View>
         <TouchableWithoutFeedback onPress = {Keyboard.dismiss}>
         <ScrollView >
-             <View style={{flex:1, flexDirection: 'row', alignSelf: 'flex-end'}}>
+             <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <TouchableOpacity onPress ={() => setToggleRemove(!toggleRemove)}>
-                    <Text style={{color: 'white', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center'}}>Edit</Text>
+                    <Text style={{color: 'green', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress ={() => setAccounts((accounts.length > 0) 
+                                                    ? [...accounts, {
+                                                        key: accordionKey(), 
+                                                        interest: '', 
+                                                        lowestAmt: ''
+                                                    }]
+                                                    : []
+                                                )}>
+                    <Text style={{color: 'green', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Add</Text>
                 </TouchableOpacity>
             </View>
 
@@ -208,7 +218,7 @@ export default function Test ({navigation}) {
         </TouchableWithoutFeedback>
             <IconButton
                 icon="check"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
@@ -226,7 +236,7 @@ export default function Test ({navigation}) {
                     navigation.navigate('Home')} } 
             />
 
-            <IconButton
+            {/* <IconButton
                 icon="plus"
                 color={Colors.blueA200}
                 size={40}
@@ -240,11 +250,11 @@ export default function Test ({navigation}) {
                     }]
                     : []
                 )}}   
-            />
+            /> */}
             
             <IconButton
                 icon="delete-outline"
-                color={Colors.blueA200}
+                color='green'
                 size={40}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
                 onPress={confirmation}

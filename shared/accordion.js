@@ -34,7 +34,7 @@ export default function Accordion(props) {
                     /> :<Text style={styles.buttonText}>{props.title}</Text>} */}
         <Text style={styles.buttonText}>{props.title}</Text>
         {props.value === undefined ? undefined : <Text style={styles.accordionTotal}>${props.value}</Text> }
-        {props.remove === true ? (<Text style={{position: "absolute", right:10, marginTop: 20, color: 'red'}} onPress={props.doRemove}>Delete</Text>) : undefined }
+        {props.remove === true ? (<Text style={{position: "absolute", right:5, color: 'red', paddingVertical: 20, paddingHorizontal: 10}} onPress={props.doRemove}>Delete</Text>) : undefined }
         {show()}
       </View>
     </TouchableOpacity>
@@ -47,26 +47,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 0,
     paddingHorizontal: 0,
-    backgroundColor: Colors.blue900,
+    backgroundColor: '#91cfa5',
     marginLeft: 8,
     marginRight: 8,
   },
   buttonText: {
     marginVertical: 15,
     fontFamily: 'roboto',
-    color: 'white',
+    color: 'black',
     fontSize: 20,
     alignSelf: 'center',
     height: 30
   },
   content: {
     height: 0,
-    backgroundColor: '#92cdf7',
+    backgroundColor: '#b6dbc2',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
   accordionTotal: {
-    color: 'white',
+    color: 'black',
     textAlign: 'center',
     marginTop: -20,
     marginBottom: 10,

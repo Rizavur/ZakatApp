@@ -35,21 +35,21 @@ const screens = {
         navigationOptions: () => ({
             title: 'Zakat Calculator',
             headerTitleStyle: styles.headerTitleStyle,
-            headerStyle: { backgroundColor: '#085e72'},
+            headerStyle: { backgroundColor: '#d4ffd5'},
           }),
     },
     Test: {
         screen: Test,
         navigationOptions: (params) => ({
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: Colors.blue900},
+            headerStyle: { backgroundColor: '#d4ffd5'},
             headerTintColor: 'white',
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => console.log(params)}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -58,14 +58,14 @@ const screens = {
         screen: Savings,
         navigationOptions: ({navigation}) => ({
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: Colors.blue900},
-            headerTintColor: 'white',
+            headerStyle: { backgroundColor: '#d4ffd5'},
+            headerTintColor: 'black',
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Savings'](true)}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -73,15 +73,15 @@ const screens = {
     Business: {
         screen: Business,
         navigationOptions: () => ({
-            headerTintColor: 'white',
+            headerTintColor: 'black',
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: Colors.blue900},
+            headerStyle: { backgroundColor: '#d4ffd5'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Business'](true)}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -90,15 +90,15 @@ const screens = {
         screen: OtherAssets,
         navigationOptions: () => ({
             title: 'Other Assets',
-            headerTintColor: 'white',
+            headerTintColor: 'black',
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: Colors.blue900},
+            headerStyle: { backgroundColor: '#d4ffd5'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['OtherAssets'](true)}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -107,14 +107,14 @@ const screens = {
         screen: Shares,
         navigationOptions: () => ({
             headerTitleStyle: styles.header,
-            headerTintColor: 'white',
-            headerStyle: { backgroundColor: Colors.blue900},
+            headerTintColor: 'black',
+            headerStyle: { backgroundColor: '#d4ffd5'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Shares'](true)}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -123,14 +123,14 @@ const screens = {
         screen: Insurance,
         navigationOptions: () => ({
             headerTitleStyle: styles.header,
-            headerTintColor: 'white',
+            headerTintColor: 'black',
             headerStyle: { backgroundColor: Colors.blue900},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => alert('This is a button!')}
                   title="Info"
-                  color="#fff"
+                  color="black"
                 />
               ),
         }),
@@ -143,10 +143,10 @@ const styles = StyleSheet.create({
         fontFamily: 'yellowtail',
         fontSize: 30,
         alignSelf: 'center',
-        color: 'white'
+        color: 'black'
     },
     header: {
-        color: 'white',
+        color: 'black',
     }
 })
 

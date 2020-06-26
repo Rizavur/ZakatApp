@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, FlatList, TouchableHighlight, AsyncStorage, AppState, Alert } from 'react-native';
+import { ScrollView, View, Text, FlatList, TouchableHighlight, AsyncStorage, AppState, Alert, StatusBar } from 'react-native';
 import {globalStyles, paperStyles}  from '../styles/global';
 import { getNumeric } from '../utils/numberUtil';
 import HomeButton from '../shared/homeButton';
@@ -373,15 +373,16 @@ export default function Home ({navigation}) {
     return(
         <PaperProvider theme = {paperStyles}>
         <ScrollView style={globalStyles.homeBG}>
-            
+            <StatusBar barStyle="dark-content"/>
+
             <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
 
                 <TouchableOpacity onPress ={clearAll}>
-                    <Text style={{color: 'white', backgroundColor: 'grey', borderRadius: 8, padding: 10, margin: 15}}>Clear All</Text>
+                    <Text style={{color: 'green', borderRadius: 8, padding: 10, margin: 15, marginBottom: 5, fontSize: 18}}>Clear All</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress ={save}>
-                    <Text style={{color: 'white',  backgroundColor: 'grey', borderRadius: 8, padding: 10, margin: 15}}>Save For Later</Text>
+                    <Text style={{color: 'green', borderRadius: 8, padding: 10, margin: 15, marginBottom: 5, fontSize: 18}}>Save</Text>
                 </TouchableOpacity>
 
             </View>
