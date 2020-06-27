@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 0,
     paddingHorizontal: 0,
-    backgroundColor: '#91cfa5',
+    backgroundColor: '#a6b1e1',
     marginLeft: 8,
     marginRight: 8,
   },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   content: {
     height: 0,
-    backgroundColor: '#b6dbc2',
+    backgroundColor: '#d5ccff',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },

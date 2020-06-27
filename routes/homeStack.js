@@ -35,21 +35,21 @@ const screens = {
         navigationOptions: () => ({
             title: 'Zakat Calculator',
             headerTitleStyle: styles.headerTitleStyle,
-            headerStyle: { backgroundColor: '#d4ffd5'},
+            headerStyle: { backgroundColor: '#a6b1e1'},
           }),
     },
     Test: {
         screen: Test,
         navigationOptions: (params) => ({
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: '#d4ffd5'},
-            headerTintColor: 'white',
+            headerStyle: { backgroundColor: '#a6b1e1'},
+            headerTintColor: 'blue',
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => console.log(params)}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),
@@ -58,14 +58,14 @@ const screens = {
         screen: Savings,
         navigationOptions: ({navigation}) => ({
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: '#d4ffd5'},
-            headerTintColor: 'black',
+            headerStyle: { backgroundColor: '#a6b1e1'},
+            headerTintColor: 'blue',
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Savings'](true)}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),
@@ -73,15 +73,15 @@ const screens = {
     Business: {
         screen: Business,
         navigationOptions: () => ({
-            headerTintColor: 'black',
+            headerTintColor: 'blue',
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: '#d4ffd5'},
+            headerStyle: { backgroundColor: '#a6b1e1'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Business'](true)}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),
@@ -90,15 +90,15 @@ const screens = {
         screen: OtherAssets,
         navigationOptions: () => ({
             title: 'Other Assets',
-            headerTintColor: 'black',
+            headerTintColor: 'blue',
             headerTitleStyle: styles.header,
-            headerStyle: { backgroundColor: '#d4ffd5'},
+            headerStyle: { backgroundColor: '#a6b1e1'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['OtherAssets'](true)}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),
@@ -107,14 +107,14 @@ const screens = {
         screen: Shares,
         navigationOptions: () => ({
             headerTitleStyle: styles.header,
-            headerTintColor: 'black',
-            headerStyle: { backgroundColor: '#d4ffd5'},
+            headerTintColor: 'blue',
+            headerStyle: { backgroundColor: '#a6b1e1'},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => setVisibleCallback['Shares'](true)}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),
@@ -123,14 +123,14 @@ const screens = {
         screen: Insurance,
         navigationOptions: () => ({
             headerTitleStyle: styles.header,
-            headerTintColor: 'black',
+            headerTintColor: 'blue',
             headerStyle: { backgroundColor: Colors.blue900},
             headerRight: () => (
                 <IconButton
                   icon='information-outline'
                   onPress={() => alert('This is a button!')}
                   title="Info"
-                  color="black"
+                  color="blue"
                 />
               ),
         }),

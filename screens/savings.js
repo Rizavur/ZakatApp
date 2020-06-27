@@ -61,7 +61,7 @@ export default function Test ({navigation}) {
                         name = {`${key}_lowestAmt`}
                         value = {accounts[index].lowestAmt}
                         onChangeText={props.handleChange('lowestAmt')}
-                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
+                        inputContainerStyle = {{backgroundColor: '#eeebff'}}
                         onChange={(value) => setAccounts(getAccountsWithNewLowestAmt(key, value.nativeEvent.text))}
                     />
                     <FilledTextField
@@ -73,7 +73,7 @@ export default function Test ({navigation}) {
                         name = {`${key}_interest`}
                         value = {accounts[index].interest}
                         onChangeText={props.handleChange('interest')}
-                        inputContainerStyle = {{backgroundColor: '#b3f5b3'}}
+                        inputContainerStyle = {{backgroundColor: '#eeebff'}}
                         onChange={(value) => setAccounts(getAccountsWithNewInterest(key, value.nativeEvent.text))}
                         
                     />
@@ -191,7 +191,7 @@ export default function Test ({navigation}) {
         <ScrollView >
              <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <TouchableOpacity onPress ={() => setToggleRemove(!toggleRemove)}>
-                    <Text style={{color: 'green', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Edit</Text>
+                    <Text style={{color: 'blue', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress ={() => setAccounts((accounts.length > 0) 
                                                     ? [...accounts, {
@@ -201,7 +201,7 @@ export default function Test ({navigation}) {
                                                     }]
                                                     : []
                                                 )}>
-                    <Text style={{color: 'green', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Add</Text>
+                    <Text style={{color: 'blue', borderRadius: 8, padding: 8, margin: 15, marginBottom: 0, textAlign: 'center', fontSize: 18}}>Add</Text>
                 </TouchableOpacity>
             </View>
 
@@ -218,8 +218,8 @@ export default function Test ({navigation}) {
         </TouchableWithoutFeedback>
             <IconButton
                 icon="check"
-                color='green'
-                size={40}
+                color='#424874'
+                size={35}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 10, right: 10}}
                 onPress={() => {
                     setAppStore({ 
@@ -254,8 +254,8 @@ export default function Test ({navigation}) {
             
             <IconButton
                 icon="delete-outline"
-                color='green'
-                size={40}
+                color='#424874'
+                size={35}
                 style = {{backgroundColor: 'black', position: 'absolute', bottom: 90, right: 10}}
                 onPress={confirmation}
             />

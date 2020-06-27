@@ -7,11 +7,12 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 5,
         fontSize: 30,
-        color: 'black'
+        color: 'black',
+        marginTop: 30
     },
     container: {
         flex: 1,
-        backgroundColor: '#f0fff0',
+        backgroundColor: '#f4eeff',
         paddingBottom: 10
       },
     ownershipContainer: {
@@ -54,7 +55,7 @@ export const globalStyles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 10,
         marginTop: 10,
-        color: 'black',
+        color: 'blue',
         textAlign: 'center'
     },
     savingsHead2: {
@@ -111,7 +112,7 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'center',
       },
       homeBG: {
-          backgroundColor: '#f0fff0'
+          backgroundColor: '#f4eeff'
       },
       errorText: {
         color: 'crimson',
@@ -144,7 +145,7 @@ export const paperStyles = {
     colors: {
         ...DefaultTheme.colors,
         // surface: '#b3f5b3',
-        surface: '#91cfa5',
+        surface: '#a6b1e1',
         text: 'black',
         primary: 'black',
 
