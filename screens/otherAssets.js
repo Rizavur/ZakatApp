@@ -65,7 +65,7 @@ export default function OtherAssets ({navigation}) {
                                 onChange={(value) => setGoldValue(value.nativeEvent.text)}
                             />
                             <FilledTextField
-                                prefix = '$'
+                                suffix = 'g'
                                 baseColor = 'black'
                                 tintColor = 'blue'
                                 keyboardType= 'numeric'
